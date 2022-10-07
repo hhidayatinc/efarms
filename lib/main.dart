@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage>{
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
+              children: const <Widget>[
                 Text("efarms", style: TextStyle(fontSize: 55, color: Colors.white, fontFamily: 'Righteous'),),
                 SizedBox(height: 5,),
                 Text("Your Partner in Agriculture", style: TextStyle(fontSize: 16, color: Colors.white, fontFamily: 'Roboto'),)

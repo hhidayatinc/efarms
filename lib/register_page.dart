@@ -1,19 +1,18 @@
 import 'package:final_project/home_page.dart';
-import 'package:final_project/register_page.dart';
 import 'package:flutter/material.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({Key? key}) : super(key: key);
+class RegisterPage extends StatefulWidget {
+  const RegisterPage({Key? key}) : super(key: key);
 
   @override
-  LoginPageState createState() => LoginPageState();
+  RegisterPageState createState() => RegisterPageState();
 }
 
-class LoginPageState extends State<LoginPage> {
+class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+      body: Container(
       child: Center(
         child: ListView(
           padding: EdgeInsets.all(10),
@@ -22,7 +21,7 @@ class LoginPageState extends State<LoginPage> {
           const Padding(
             padding: EdgeInsets.only(left: 130, bottom: 50),
             child: Text(
-              'Sign In',
+              'Sign Up',
               style: TextStyle(
                   fontSize: 30,
                   fontFamily: 'Nunito Sans',
@@ -31,7 +30,29 @@ class LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(10),
+            child: TextFormField(
+              keyboardType: TextInputType.text,
+              decoration: InputDecoration(
+                hintText: 'Username',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
+            child: TextFormField(
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                hintText: 'No Telp',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
+              ),
+            ),
+          ),
+          Padding(
+            padding: EdgeInsets.all(10),
             child: TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -42,7 +63,7 @@ class LoginPageState extends State<LoginPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(15),
+            padding: EdgeInsets.all(10),
             child: TextFormField(
               keyboardType: TextInputType.text,
               obscureText: true,
@@ -62,7 +83,7 @@ class LoginPageState extends State<LoginPage> {
                 height: 50.0,
                 onPressed: () {},
                 color: Colors.green,
-                child: Text('Sign In',
+                child: Text('Sign Up',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
@@ -71,21 +92,14 @@ class LoginPageState extends State<LoginPage> {
               ),
             ),
           ),
-          Padding(padding:EdgeInsets.only(left: 90),child: Text(
-              'Dont have an account?',
-              style: TextStyle(
-                  color: Colors.grey,
-                  fontFamily: 'NTR',
-                  fontSize: 20),
-            ),),
-             TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));}, child: const Text('Sign Up', style: TextStyle(fontSize: 20, color: Colors.green),)),
+         
 
         ],
       ),
       ),
       decoration: const BoxDecoration(
         image: DecorationImage(
-          image: AssetImage('assets/image/wallpaper1.png'),
+          image: AssetImage('assets/image/wallpaper2.png'),
           fit: BoxFit.cover,
         ),
       ),
