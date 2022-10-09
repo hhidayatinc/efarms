@@ -1,7 +1,10 @@
-import 'package:final_project/page/inventory_page.dart';
-import 'package:final_project/page/kebun_page.dart';
-import 'package:final_project/page/qc_page.dart';
+import 'package:final_project/login_page.dart';
+import 'package:final_project/pages/inventory_page.dart';
+import 'package:final_project/pages/kebun_page.dart';
+import 'package:final_project/pages/qc_page.dart';
+import 'package:final_project/service/auth_google.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -15,9 +18,20 @@ class HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var textNunitoSans = 'Nunito Sans';
     return Scaffold(
+      floatingActionButton: FloatingActionButton(backgroundColor: Colors.green,onPressed: 
+      () async{
+        String url ="https://wa.me/+6285235655323/?text=Hello";
+        if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw "Could not launch $url";
+    }
+      },
+      child: Icon(Icons.chat,color: Colors.white,)),
         body: Container(
-      margin: EdgeInsetsDirectional.all(15),
+      margin: const EdgeInsetsDirectional.all(15),
       child: ListView(
+        physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         children: [
           Column(
@@ -27,23 +41,26 @@ class HomePageState extends State<HomePage> {
                   Image.asset(
                     'assets/image/logokecil.png',
                   ),
-                  Text(
+                  const Text(
                     'efarms',
                     style: TextStyle(
                         letterSpacing: 2,
                         fontFamily: 'Righteous',
                         fontSize: 30),
                   ),
-                  SizedBox(
-                    width: 180,
+                  const SizedBox(
+                    width: 160,
                   ),
-                  Icon(
-                    Icons.people,
-                    color: Colors.green,
+                  IconButton(
+                    icon: Icon(Icons.people),
+                    onPressed: (){
+                      signOutGoogle();
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
+                    }
                   )
                 ],
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -69,7 +86,7 @@ class HomePageState extends State<HomePage> {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 15,
               ),
               Container(
@@ -90,7 +107,7 @@ class HomePageState extends State<HomePage> {
                     ),
                     SizedBox(
                       child: Container(
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: Row(
                           children: [
                             InkWell(
@@ -100,7 +117,7 @@ class HomePageState extends State<HomePage> {
                                         const QualityControl()));
                               },
                               child: Container(
-                                padding: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
                                 width: 100,
                                 height: 100,
                                 decoration: boxDecoration(),
@@ -108,7 +125,7 @@ class HomePageState extends State<HomePage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Image.asset('assets/image/qc.png'),
-                                    SizedBox(
+                                    const SizedBox(
                                       height: 5,
                                     ),
                                     Text(
@@ -121,17 +138,17 @@ class HomePageState extends State<HomePage> {
                                 ),
                               ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             InkWell(
                               onTap: () {
                                 Navigator.of(context).push(MaterialPageRoute(
                                     builder: (context) =>
-                                        const Kebun()));
+                                        const KebunPage()));
                               },
                               child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               width: 100,
                               height: 100,
                               decoration: boxDecoration(),
@@ -139,7 +156,7 @@ class HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset('assets/image/kebun.png'),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
@@ -152,7 +169,7 @@ class HomePageState extends State<HomePage> {
                               ),
                             ),
                             ),
-                            SizedBox(
+                            const SizedBox(
                               width: 10,
                             ),
                             InkWell(
@@ -162,7 +179,7 @@ class HomePageState extends State<HomePage> {
                                         const Inventory()));
                               },
                               child: Container(
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               width: 100,
                               height: 100,
                               decoration: boxDecoration(),
@@ -170,7 +187,7 @@ class HomePageState extends State<HomePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Image.asset('assets/image/inventory.png'),
-                                  SizedBox(
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
@@ -204,28 +221,24 @@ class HomePageState extends State<HomePage> {
                       
                       child: Container(
                         height: 200,
-                        padding: EdgeInsets.all(20),
+                        padding: const EdgeInsets.all(20),
                         child: ListView(scrollDirection: Axis.horizontal,
                         children: [
                           InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Inventory()));
-                              },
+                              onTap: null,
                               child: Container(
                                 width: 150,
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: boxDecoration(),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/image/inventory.png'),
-                                  SizedBox(
+                                  Image.asset('assets/image/kubis.png'),
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    'Inventory',
+                                    'Kubis',
                                     style: TextStyle(
                                         fontFamily: textNunitoSans, fontSize: 12),
                                     textAlign: TextAlign.center,
@@ -234,26 +247,22 @@ class HomePageState extends State<HomePage> {
                               ),
                             ),
                             ),
-                            SizedBox(width: 20),
+                            const SizedBox(width: 20),
                             InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Inventory()));
-                              },
+                              onTap: null,
                               child: Container(
                                 width: 150,
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: boxDecoration(),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/image/inventory.png'),
-                                  SizedBox(
+                                  Image.asset('assets/image/kubis.png'),
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    'Inventory',
+                                    'Kubis',
                                     style: TextStyle(
                                         fontFamily: textNunitoSans, fontSize: 12),
                                     textAlign: TextAlign.center,
@@ -262,26 +271,22 @@ class HomePageState extends State<HomePage> {
                               ),
                             ),
                             ),
-                            SizedBox(width: 20,),
+                            const SizedBox(width: 20,),
                             InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Inventory()));
-                              },
+                              onTap: null,
                               child: Container(
                                 width: 150,
-                              padding: EdgeInsets.all(8),
+                              padding: const EdgeInsets.all(8),
                               decoration: boxDecoration(),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Image.asset('assets/image/inventory.png'),
-                                  SizedBox(
+                                  Image.asset('assets/image/kubis.png'),
+                                  const SizedBox(
                                     height: 5,
                                   ),
                                   Text(
-                                    'Inventory',
+                                    'Kubis',
                                     style: TextStyle(
                                         fontFamily: textNunitoSans, fontSize: 12),
                                     textAlign: TextAlign.center,
@@ -290,7 +295,103 @@ class HomePageState extends State<HomePage> {
                               ),
                             ),
                             ),
-                            SizedBox(width: 10,),
+                            const SizedBox(width: 10,),
+                            
+                        ],),
+                      ),
+                    ),
+                    SizedBox(
+                      width: double.infinity,
+                      child: Container(
+                        child: Text(
+                          "Sekilas Ilmu",
+                          style: TextStyle(
+                              fontFamily: textNunitoSans,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600),
+                          textAlign: TextAlign.left,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      
+                      child: Container(
+                        height: 200,
+                        padding: const EdgeInsets.all(20),
+                        child: ListView(scrollDirection: Axis.horizontal,
+                        children: [
+                          InkWell(
+                              onTap:null,
+                              child: Container(
+                                width: 150,
+                              padding: const EdgeInsets.all(8),
+                              decoration: boxDecoration(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/image/video.png'),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Webinar',
+                                    style: TextStyle(
+                                        fontFamily: textNunitoSans, fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
+                            ),
+                            ),
+                            const SizedBox(width: 20),
+                            InkWell(
+                              onTap: null,
+                              child: Container(
+                                width: 150,
+                              padding: const EdgeInsets.all(8),
+                              decoration: boxDecoration(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/image/video.png'),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Wbinar',
+                                    style: TextStyle(
+                                        fontFamily: textNunitoSans, fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
+                            ),
+                            ),
+                            const SizedBox(width: 20,),
+                            InkWell(
+                              onTap: null,
+                              child: Container(
+                                width: 150,
+                              padding: const EdgeInsets.all(8),
+                              decoration: boxDecoration(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/image/video.png'),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Webinar',
+                                    style: TextStyle(
+                                        fontFamily: textNunitoSans, fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
+                            ),
+                            ),
+                            const SizedBox(width: 10,),
                             
                         ],),
                       ),
@@ -314,7 +415,7 @@ class HomePageState extends State<HomePage> {
           color: Colors.grey.withOpacity(0.2),
           spreadRadius: 5,
           blurRadius: 7,
-          offset: Offset(0, 3), // changes position of shadow
+          offset: const Offset(0, 3), // changes position of shadow
         ),
       ],
     );

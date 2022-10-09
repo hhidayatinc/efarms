@@ -1,4 +1,4 @@
-import 'package:final_project/page/home_page.dart';
+import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/register_page.dart';
 import 'package:final_project/service/auth.dart';
 import 'package:final_project/service/auth_email.dart';
@@ -189,21 +189,21 @@ class LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                Text(
+                const Text(
                   "Don’t have an account ?",
                   style: TextStyle(color: Colors.grey, fontSize: 18, fontFamily: 'NTR'),
                 ),
-                SizedBox(height: 5),
+                const SizedBox(height: 5),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => RegisterPage()));
+                            builder: (context) => const RegisterPage()));
                   },
-                  child: Text(
+                  child: const Text(
                     "Sign Up",
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.green, fontWeight: FontWeight.w700, fontFamily:'Righteous',fontSize: 20),
                   ),
                 ),
