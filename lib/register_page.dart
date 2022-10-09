@@ -1,4 +1,4 @@
-import 'package:final_project/home_page.dart';
+import 'package:final_project/page/home_page.dart';
 import 'package:flutter/material.dart';
 
 class RegisterPage extends StatefulWidget {
@@ -15,7 +15,7 @@ class RegisterPageState extends State<RegisterPage> {
       body: Container(
       child: Center(
         child: ListView(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
         shrinkWrap: true,
         children: [
           const Padding(
@@ -30,7 +30,7 @@ class RegisterPageState extends State<RegisterPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextFormField(
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -41,18 +41,7 @@ class RegisterPageState extends State<RegisterPage> {
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
-            child: TextFormField(
-              keyboardType: TextInputType.phone,
-              decoration: InputDecoration(
-                hintText: 'No Telp',
-                border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-              ),
-            ),
-          ),
-          Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextFormField(
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -60,10 +49,11 @@ class RegisterPageState extends State<RegisterPage> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
+              
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(10),
+            padding: const EdgeInsets.all(10),
             child: TextFormField(
               keyboardType: TextInputType.text,
               obscureText: true,
@@ -72,10 +62,11 @@ class RegisterPageState extends State<RegisterPage> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
+             
             ),
           ),
           Padding(
-            padding: EdgeInsets.all(15),
+            padding: const EdgeInsets.all(15),
             child: Material(
               borderRadius: BorderRadius.circular(10),
               child: MaterialButton(
@@ -83,12 +74,12 @@ class RegisterPageState extends State<RegisterPage> {
                 height: 50.0,
                 onPressed: () {},
                 color: Colors.green,
-                child: Text('Sign Up',
+                child: const Text('Sign Up',
                     style: TextStyle(
                         color: Colors.white,
                         fontSize: 18,
                         fontFamily: 'Nunito-Sans')),
-                        onLongPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => HomePage()));},
+                        onLongPress: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => const HomePage()));},
               ),
             ),
           ),
