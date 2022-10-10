@@ -1,3 +1,4 @@
+import 'package:final_project/login_page.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/service/auth.dart';
 import 'package:final_project/service/auth_email.dart';
@@ -36,8 +37,7 @@ class RegisterPageState extends State<RegisterPage> {
                 'Sign Up',
                 style: TextStyle(
                     fontSize: 30,
-                    fontFamily: 'Nunito Sans',
-                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Righteous', 
                     color: Color(0xFF4CAF50)),
               ),
             ),
@@ -80,6 +80,7 @@ class RegisterPageState extends State<RegisterPage> {
               padding: const EdgeInsets.all(5),
               child: _signUpButton(),
             ),
+            _signInButton(context)
           ],
         ),
       ),
@@ -132,5 +133,33 @@ class RegisterPageState extends State<RegisterPage> {
         ),
       ),
     );
+  }
+  Widget _signInButton(BuildContext context) {
+    return Padding(
+            padding: const EdgeInsets.only(left: 10, top: 15),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                const Text(
+                  "Already have an account ?",
+                  style: TextStyle(color: Colors.grey, fontSize: 18, fontFamily: 'NTR'),
+                ),
+                const SizedBox(height: 5),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()));
+                  },
+                  child: const Text(
+                    "Sign In",
+                    style: const TextStyle(
+                        color: Colors.green, fontWeight: FontWeight.w700, fontFamily:'Righteous',fontSize: 20),
+                  ),
+                ),
+              ],
+            ),
+            );
   }
 }

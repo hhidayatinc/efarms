@@ -76,6 +76,7 @@ flutter:
     - assets/image/kubis.png
     - assets/image/lokasi.png
     - assets/image/video.png
+    - assets/image/wallpaper3.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

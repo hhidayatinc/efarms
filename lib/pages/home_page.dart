@@ -20,7 +20,7 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(backgroundColor: Colors.green,onPressed: 
       () async{
-        String url ="https://wa.me/+6285235655323/?text=Hello";
+        String url ="https://wa.me/+6285235655323/?text=Hai Arta, saya mau konsultasi";
         if (await canLaunch(url)) {
       await launch(url);
     } else {
@@ -29,8 +29,9 @@ class HomePageState extends State<HomePage> {
       },
       child: Icon(Icons.chat,color: Colors.white,)),
         body: Container(
-      margin: const EdgeInsetsDirectional.all(15),
+      //margin: const EdgeInsetsDirectional.all(15),
       child: ListView(
+        padding: const EdgeInsets.all(15),
         physics: const BouncingScrollPhysics(),
         shrinkWrap: true,
         children: [
@@ -49,19 +50,19 @@ class HomePageState extends State<HomePage> {
                         fontSize: 30),
                   ),
                   const SizedBox(
-                    width: 160,
+                    width: 150,
                   ),
                   IconButton(
                     icon: Icon(Icons.people),
                     onPressed: (){
-                      signOutGoogle();
+                      Authentication.signOutGoogle();
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
                     }
                   )
                 ],
               ),
               const SizedBox(
-                height: 20,
+                height: 15,
               ),
               SizedBox(
                 width: double.infinity,
@@ -107,7 +108,7 @@ class HomePageState extends State<HomePage> {
                     ),
                     SizedBox(
                       child: Container(
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
                         child: Row(
                           children: [
                             InkWell(
@@ -221,7 +222,7 @@ class HomePageState extends State<HomePage> {
                       
                       child: Container(
                         height: 200,
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.fromLTRB(5,20,5,20),
                         child: ListView(scrollDirection: Axis.horizontal,
                         children: [
                           InkWell(
@@ -317,7 +318,7 @@ class HomePageState extends State<HomePage> {
                       
                       child: Container(
                         height: 200,
-                        padding: const EdgeInsets.all(20),
+                        padding: const EdgeInsets.fromLTRB(5,20,5,20),
                         child: ListView(scrollDirection: Axis.horizontal,
                         children: [
                           InkWell(
@@ -402,6 +403,12 @@ class HomePageState extends State<HomePage> {
             ],
           ),
         ],
+      ),
+      decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/image/wallpaper3.png'),
+          fit: BoxFit.cover,
+        ),
       ),
     ));
   }

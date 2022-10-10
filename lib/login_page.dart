@@ -3,6 +3,7 @@ import 'package:final_project/register_page.dart';
 import 'package:final_project/service/auth.dart';
 import 'package:final_project/service/auth_email.dart';
 import 'package:final_project/service/auth_google.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -37,8 +38,7 @@ class LoginPageState extends State<LoginPage> {
               'Sign In',
               style: TextStyle(
                   fontSize: 30,
-                  fontFamily: 'Nunito Sans',
-                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Righteous', 
                   color: Color(0xFF4CAF50)),
             ),
           ),
@@ -165,15 +165,14 @@ class LoginPageState extends State<LoginPage> {
             child: FlatButton(
               //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
               color: Colors.green,
-              onPressed: () {
-                signInWithGoogle().then((result) {
-                  if (result != null) {
-                    Navigator.of(context)
-                        .push(MaterialPageRoute(builder: (context) {
-                      return const HomePage();
-                    }));
-                  }
-                });
+              onPressed: () async{
+                User? user = await Authentication.signInWithGoogle(context: context);
+                if(user != null){
+                  Navigator.of(context)
+                         .push(MaterialPageRoute(builder: (context) {
+                       return const HomePage();
+                     }));
+                }
               },
               child: const Text(
                 "Sign in With Google",

@@ -22,7 +22,7 @@ class FormKebunState extends State<FormKebun> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => KebunPage())); },
+          icon: const Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const KebunPage())); },
         ),
         title: Text('Tambah Data Kebun',
             style: TextStyle(
@@ -36,7 +36,7 @@ class FormKebunState extends State<FormKebun> {
           child: ListView(physics: const BouncingScrollPhysics(), children: [
         Column(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Image.asset('assets/image/lokasi.png'),
@@ -134,7 +134,7 @@ class FormKebunState extends State<FormKebun> {
                                         onPressed: () {
                                           Navigator.pop(context);
                                         },
-                                        child: Text("Tidak"))
+                                        child: const Text("Tidak"))
                                   ]));
                     },
                     color: Colors.green,
@@ -158,7 +158,7 @@ class FormKebunState extends State<FormKebun> {
                             jenis: _jenisController.text,
                             komoditas: _komoditasController.text,
                             luas: _luasController.text);
-                        Navigator.of(context).pop();
+                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data kebun baru berhasil ditambahkan!')));
                       },
                       child: const Text(
                         'Simpan',

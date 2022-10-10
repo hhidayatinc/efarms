@@ -36,6 +36,14 @@ class QualityControlState extends State<QualityControl>{
           size: 32,
         ),
       ),
+      body: Container(
+        decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/image/wallpaper3.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      ),
     );
   }
 }

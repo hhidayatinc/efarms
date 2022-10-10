@@ -37,6 +37,14 @@ class KebunPageState extends State<KebunPage>{
           size: 32,
         ),
       ),
+      body: Container(
+        decoration: const BoxDecoration(
+        image: DecorationImage(
+          image: AssetImage('assets/image/wallpaper3.png'),
+          fit: BoxFit.cover,
+        ),
+      ),
+      ),
     );
   }
 }
