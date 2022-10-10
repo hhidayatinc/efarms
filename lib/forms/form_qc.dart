@@ -13,9 +13,9 @@ class FormQcState extends State<FormQc>{
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => QualityControl())); },
+          icon: const Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const QualityControl())); },
         ),
-        title: Text("Tambah Data QC", style: TextStyle(color: Colors.black, fontFamily: 'NunitoSans', fontWeight: FontWeight.w600),),
+        title: const Text("Tambah Data QC", style: TextStyle(color: Colors.black, fontFamily: 'NunitoSans', fontWeight: FontWeight.w600),),
         centerTitle: true,
         backgroundColor: Colors.white,),
     );

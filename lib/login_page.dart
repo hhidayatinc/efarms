@@ -202,7 +202,7 @@ class LoginPageState extends State<LoginPage> {
                   },
                   child: const Text(
                     "Sign Up",
-                    style: const TextStyle(
+                    style: TextStyle(
                         color: Colors.green, fontWeight: FontWeight.w700, fontFamily:'Righteous',fontSize: 20),
                   ),
                 ),

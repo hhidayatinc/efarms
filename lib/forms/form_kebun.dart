@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use, duplicate_ignore
+
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/pages/kebun_page.dart';
 import 'package:flutter/material.dart';
@@ -146,25 +148,23 @@ class FormKebunState extends State<FormKebun> {
               const SizedBox(
                 width: 50,
               ),
-              Container(
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: FlatButton(
-                      color: Colors.green,
-                      onPressed: () async {
-                        await Kebun.addNewKebun(
-                            nama: _namaController.text,
-                            alamat: _alamatController.text,
-                            jenis: _jenisController.text,
-                            komoditas: _komoditasController.text,
-                            luas: _luasController.text);
-                        ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data kebun baru berhasil ditambahkan!')));
-                      },
-                      child: const Text(
-                        'Simpan',
-                        style: TextStyle(color: Colors.white),
-                      )),
-                ),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10),
+                child: FlatButton(
+                    color: Colors.green,
+                    onPressed: () async {
+                      await Kebun.addNewKebun(
+                          nama: _namaController.text,
+                          alamat: _alamatController.text,
+                          jenis: _jenisController.text,
+                          komoditas: _komoditasController.text,
+                          luas: _luasController.text);
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data kebun baru berhasil ditambahkan!')));
+                    },
+                    child: const Text(
+                      'Simpan',
+                      style: TextStyle(color: Colors.white),
+                    )),
               )
             ],
           ),

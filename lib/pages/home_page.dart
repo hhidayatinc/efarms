@@ -20,14 +20,14 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       floatingActionButton: FloatingActionButton(backgroundColor: Colors.green,onPressed: 
       () async{
-        String url ="https://wa.me/+6285235655323/?text=Hai Arta, saya mau konsultasi";
-        if (await canLaunch(url)) {
-      await launch(url);
+        Uri url ="https://wa.me/+6285235655323/?text=Hai Arta, saya mau konsultasi" as Uri;
+        if (await canLaunchUrl(url)) {
+      await launchUrl(url);
     } else {
       throw "Could not launch $url";
     }
       },
-      child: Icon(Icons.chat,color: Colors.white,)),
+      child: const Icon(Icons.chat,color: Colors.white,)),
         body: Container(
       //margin: const EdgeInsetsDirectional.all(15),
       child: ListView(
@@ -53,7 +53,7 @@ class HomePageState extends State<HomePage> {
                     width: 150,
                   ),
                   IconButton(
-                    icon: Icon(Icons.people),
+                    icon: const Icon(Icons.people),
                     onPressed: (){
                       Authentication.signOutGoogle();
                       Navigator.of(context).push(MaterialPageRoute(builder: (context) => const LoginPage()));
@@ -66,339 +66,327 @@ class HomePageState extends State<HomePage> {
               ),
               SizedBox(
                 width: double.infinity,
-                child: Container(
-                  child: Text(
-                    "Selamat Datang Farmers!",
-                    style: TextStyle(
-                        fontFamily: textNunitoSans,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 20),
-                    textAlign: TextAlign.left,
-                  ),
+                child: Text(
+                  "Selamat Datang Farmers!",
+                  style: TextStyle(
+                      fontFamily: textNunitoSans,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 20),
+                  textAlign: TextAlign.left,
                 ),
               ),
               SizedBox(
                 width: double.infinity,
-                child: Container(
-                  child: Text(
-                    "Happy Farming!",
-                    style: TextStyle(fontFamily: textNunitoSans, fontSize: 16),
-                    textAlign: TextAlign.left,
-                  ),
+                child: Text(
+                  "Happy Farming!",
+                  style: TextStyle(fontFamily: textNunitoSans, fontSize: 16),
+                  textAlign: TextAlign.left,
                 ),
               ),
               const SizedBox(
                 height: 15,
               ),
-              Container(
-                child: Column(
-                  children: [
-                    SizedBox(
-                      width: double.infinity,
-                      child: Container(
-                        child: Text(
-                          "Fitur Unggulan Kami",
-                          style: TextStyle(
-                              fontFamily: textNunitoSans,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
+              Column(
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Fitur Unggulan Kami",
+                      style: TextStyle(
+                          fontFamily: textNunitoSans,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
                     ),
-                    SizedBox(
-                      child: Container(
-                        padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
-                        child: Row(
-                          children: [
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const QualityControl()));
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.all(8),
-                                width: 100,
-                                height: 100,
-                                decoration: boxDecoration(),
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Image.asset('assets/image/qc.png'),
-                                    const SizedBox(
-                                      height: 5,
-                                    ),
-                                    Text(
-                                      'Quality Control',
-                                      style: TextStyle(
-                                          fontFamily: textNunitoSans, fontSize: 12),
-                                      textAlign: TextAlign.center,
-                                    )
-                                  ],
+                  ),
+                  SizedBox(
+                    child: Container(
+                      padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
+                      child: Row(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const QualityControl()));
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.all(8),
+                              width: 100,
+                              height: 100,
+                              decoration: boxDecoration(),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Image.asset('assets/image/qc.png'),
+                                  const SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    'Quality Control',
+                                    style: TextStyle(
+                                        fontFamily: textNunitoSans, fontSize: 12),
+                                    textAlign: TextAlign.center,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const KebunPage()));
+                            },
+                            child: Container(
+                            padding: const EdgeInsets.all(8),
+                            width: 100,
+                            height: 100,
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/kebun.png'),
+                                const SizedBox(
+                                  height: 5,
                                 ),
-                              ),
+                                Text(
+                                  'Kebunku',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const KebunPage()));
-                              },
-                              child: Container(
-                              padding: const EdgeInsets.all(8),
-                              width: 100,
-                              height: 100,
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/kebun.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Kebunku',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
-                            ),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const Inventory()));
-                              },
-                              child: Container(
-                              padding: const EdgeInsets.all(8),
-                              width: 100,
-                              height: 100,
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/inventory.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Inventory',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
-                            ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Container(
-                        child: Text(
-                          "Artikel Pertanian",
-                          style: TextStyle(
-                              fontFamily: textNunitoSans,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      
-                      child: Container(
-                        height: 200,
-                        padding: const EdgeInsets.fromLTRB(5,20,5,20),
-                        child: ListView(scrollDirection: Axis.horizontal,
-                        children: [
+                          ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
                           InkWell(
-                              onTap: null,
-                              child: Container(
-                                width: 150,
-                              padding: const EdgeInsets.all(8),
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/kubis.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Kubis',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Inventory()));
+                            },
+                            child: Container(
+                            padding: const EdgeInsets.all(8),
+                            width: 100,
+                            height: 100,
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/inventory.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Inventory',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
-                            ),
-                            const SizedBox(width: 20),
-                            InkWell(
-                              onTap: null,
-                              child: Container(
-                                width: 150,
-                              padding: const EdgeInsets.all(8),
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/kubis.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Kubis',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
-                            ),
-                            ),
-                            const SizedBox(width: 20,),
-                            InkWell(
-                              onTap: null,
-                              child: Container(
-                                width: 150,
-                              padding: const EdgeInsets.all(8),
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/kubis.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Kubis',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
-                            ),
-                            ),
-                            const SizedBox(width: 10,),
-                            
-                        ],),
+                          ),
+                          )
+                        ],
                       ),
                     ),
-                    SizedBox(
-                      width: double.infinity,
-                      child: Container(
-                        child: Text(
-                          "Sekilas Ilmu",
-                          style: TextStyle(
-                              fontFamily: textNunitoSans,
-                              fontSize: 14,
-                              fontWeight: FontWeight.w600),
-                          textAlign: TextAlign.left,
-                        ),
-                      ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Artikel Pertanian",
+                      style: TextStyle(
+                          fontFamily: textNunitoSans,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
                     ),
-                    SizedBox(
-                      
-                      child: Container(
-                        height: 200,
-                        padding: const EdgeInsets.fromLTRB(5,20,5,20),
-                        child: ListView(scrollDirection: Axis.horizontal,
-                        children: [
+                  ),
+                  SizedBox(
+                    
+                    child: Container(
+                      height: 200,
+                      padding: const EdgeInsets.fromLTRB(5,20,5,20),
+                      child: ListView(scrollDirection: Axis.horizontal,
+                      children: [
+                        InkWell(
+                            onTap: null,
+                            child: Container(
+                              width: 150,
+                            padding: const EdgeInsets.all(8),
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/kubis.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Kubis',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
+                            ),
+                          ),
+                          ),
+                          const SizedBox(width: 20),
                           InkWell(
-                              onTap:null,
-                              child: Container(
-                                width: 150,
-                              padding: const EdgeInsets.all(8),
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/video.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Webinar',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
+                            onTap: null,
+                            child: Container(
+                              width: 150,
+                            padding: const EdgeInsets.all(8),
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/kubis.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Kubis',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
+                          ),
+                          ),
+                          const SizedBox(width: 20,),
+                          InkWell(
+                            onTap: null,
+                            child: Container(
+                              width: 150,
+                            padding: const EdgeInsets.all(8),
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/kubis.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Kubis',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
-                            const SizedBox(width: 20),
-                            InkWell(
-                              onTap: null,
-                              child: Container(
-                                width: 150,
-                              padding: const EdgeInsets.all(8),
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/video.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Wbinar',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
+                          ),
+                          ),
+                          const SizedBox(width: 10,),
+                          
+                      ],),
+                    ),
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Text(
+                      "Sekilas Ilmu",
+                      style: TextStyle(
+                          fontFamily: textNunitoSans,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  SizedBox(
+                    
+                    child: Container(
+                      height: 200,
+                      padding: const EdgeInsets.fromLTRB(5,20,5,20),
+                      child: ListView(scrollDirection: Axis.horizontal,
+                      children: [
+                        InkWell(
+                            onTap:null,
+                            child: Container(
+                              width: 150,
+                            padding: const EdgeInsets.all(8),
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/video.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Webinar',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
+                          ),
+                          ),
+                          const SizedBox(width: 20),
+                          InkWell(
+                            onTap: null,
+                            child: Container(
+                              width: 150,
+                            padding: const EdgeInsets.all(8),
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/video.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Wbinar',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
-                            const SizedBox(width: 20,),
-                            InkWell(
-                              onTap: null,
-                              child: Container(
-                                width: 150,
-                              padding: const EdgeInsets.all(8),
-                              decoration: boxDecoration(),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Image.asset('assets/image/video.png'),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    'Webinar',
-                                    style: TextStyle(
-                                        fontFamily: textNunitoSans, fontSize: 12),
-                                    textAlign: TextAlign.center,
-                                  )
-                                ],
-                              ),
+                          ),
+                          ),
+                          const SizedBox(width: 20,),
+                          InkWell(
+                            onTap: null,
+                            child: Container(
+                              width: 150,
+                            padding: const EdgeInsets.all(8),
+                            decoration: boxDecoration(),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/image/video.png'),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                Text(
+                                  'Webinar',
+                                  style: TextStyle(
+                                      fontFamily: textNunitoSans, fontSize: 12),
+                                  textAlign: TextAlign.center,
+                                )
+                              ],
                             ),
-                            ),
-                            const SizedBox(width: 10,),
-                            
-                        ],),
-                      ),
-                    )
-                  ],
-                ),
+                          ),
+                          ),
+                          const SizedBox(width: 10,),
+                          
+                      ],),
+                    ),
+                  )
+                ],
               ),
             ],
           ),

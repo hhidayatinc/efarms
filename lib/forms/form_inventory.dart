@@ -12,9 +12,9 @@ class FormInventoryState extends State<FormInventory> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(appBar: AppBar(leading: IconButton(
-          icon: Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => FormKebun())); },
+          icon: const Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const FormKebun())); },
         ),
-        title: Text("Tambah Data Inventory", style: TextStyle(color: Colors.black, fontFamily: 'NunitoSans', fontWeight: FontWeight.w600, fontSize: 20),),
+        title: const Text("Tambah Data Inventory", style: TextStyle(color: Colors.black, fontFamily: 'NunitoSans', fontWeight: FontWeight.w600, fontSize: 20),),
         centerTitle: true,
         backgroundColor: Colors.white,),);
   }
