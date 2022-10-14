@@ -16,6 +16,7 @@ class RegisterPageState extends State<RegisterPage> {
 
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
   void _togglePasswordvisibility() {
     setState(() {
       _isHidePass = !_isHidePass;
@@ -25,7 +26,9 @@ class RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+        body: Form(
+          key: _formKey,
+          child: Container(
       child: Center(
         child: ListView(
           padding: const EdgeInsets.all(10),
@@ -51,6 +54,14 @@ class RegisterPageState extends State<RegisterPage> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                 ),
+                validator: (value) {
+                  if (value == null) {
+                    return 'Enter an Email Address';
+                  } else if (!value.contains('@')) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
@@ -74,6 +85,14 @@ class RegisterPageState extends State<RegisterPage> {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10.0)),
                 ),
+                validator: (value){
+                  if(value ==null){
+                   return 'Isi password';
+                  } else if(value.length < 6){
+                    return 'Password minimal 6 karakter';
+                  }
+                  return null;
+                },
               ),
             ),
             Padding(
@@ -90,6 +109,7 @@ class RegisterPageState extends State<RegisterPage> {
           fit: BoxFit.cover,
         ),
       ),
+          )
     ));
   }
 
@@ -103,6 +123,7 @@ class RegisterPageState extends State<RegisterPage> {
           //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: Colors.green,
           onPressed: () async {
+           if(_formKey.currentState!.validate()){
             SignInSignUpResult result = await AuthService.createUser(
                 email: _emailController.text, pass: _passController.text);
             // ignore: unnecessary_null_comparison
@@ -124,6 +145,7 @@ class RegisterPageState extends State<RegisterPage> {
                                 child: const Text("OK"))
                           ]));
             }
+           } 
           },
           child: const Text(
             "Sign Up",

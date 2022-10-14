@@ -35,7 +35,7 @@ class Qc{
     await df.set(data).whenComplete(() => messageAdd).catchError((e) => print(e));
   }
 
-  static Future<void>? updateKebun({
+  static Future<void>? updateQc({
     String? qcId,
     String? tanggal,
     String? kebun,
@@ -61,11 +61,11 @@ class Qc{
     };
     await df.update(data).whenComplete(() => messageUpdate).catchError((e) => print(e));
   }
-  static Stream<QuerySnapshot>? showKebun(){
-    CollectionReference kebunCollection = _mainCollection.doc(userUid).collection('qc');
-    return kebunCollection.snapshots();
+  static Stream<QuerySnapshot>? readQc(){
+    CollectionReference qcCollection = _mainCollection.doc(userUid).collection('qc');
+    return qcCollection.snapshots();
   }
-  static Future<void>? deleteKebun({
+  static Future<void>? deleteQc({
     String? qcId
   }) async{
     DocumentReference df = _mainCollection.doc(userUid).collection('qc').doc(qcId);

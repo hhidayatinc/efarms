@@ -1,5 +1,5 @@
 
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/kebun.dart';

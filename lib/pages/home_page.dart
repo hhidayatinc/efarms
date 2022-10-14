@@ -170,7 +170,7 @@ class HomePageState extends State<HomePage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
-                                      const Inventory()));
+                                      const InventoryPage()));
                             },
                             child: Container(
                             padding: const EdgeInsets.all(8),

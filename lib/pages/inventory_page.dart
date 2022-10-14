@@ -2,13 +2,13 @@ import 'package:final_project/forms/form_inventory.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class Inventory extends StatefulWidget{
-  const Inventory({Key? key}) : super(key: key);
+class InventoryPage  extends StatefulWidget{
+  const InventoryPage({Key? key}) : super(key: key);
   @override
- InventoryState createState() =>InventoryState();
+ InventoryPageState createState() =>InventoryPageState();
 }
 
-class InventoryState extends State<Inventory>{
+class InventoryPageState extends State<InventoryPage>{
  var textNunitoSans = 'NunitoSans';
   @override
   Widget build(BuildContext context) {

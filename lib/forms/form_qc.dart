@@ -1,4 +1,4 @@
-import 'dart:ffi';
+// ignore_for_file: deprecated_member_use, duplicate_ignore
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_field/date_field.dart';
@@ -22,8 +22,8 @@ class FormQcState extends State<FormQc> {
   final TextEditingController _phSebelumController = TextEditingController();
   final TextEditingController _phSesudahController = TextEditingController();
   final TextEditingController _phTambahController = TextEditingController();
-  final FocusNode _kabunFocusNode = FocusNode();
   DateTime _chooseDate = DateTime.now();
+  // ignore: prefer_typing_uninitialized_variables
   var selectedKebun;
   String textNunitoSans = 'Nunito Sans';
   @override
@@ -78,49 +78,47 @@ class FormQcState extends State<FormQc> {
                     mode: DateTimeFieldPickerMode.date,
                     selectedDate: _chooseDate,
                   ),
-                  Container(
-                    child: StreamBuilder<QuerySnapshot>(
-                    stream: Kebun.showKebun(),
-                    builder: (context, snapshot) {
-                       Widget widget = const Center(child: Text('Tidak ada data'));
-                      if(!snapshot.hasData){
-                        return widget;
-                      } else{
-                        List<DropdownMenuItem> currencyKebun = [];
-                        for(int i=0; i<snapshot.data!.docs.length; i++){
-                          var snap = snapshot.data!.docs[i];
-                          String kebun = snap['nama_kebun'];
-                          currencyKebun.add(DropdownMenuItem(child: Text(kebun),
-                          value: "${kebun}",));
-                        }
-                        return Row(
-                        children: <Widget>[
-                      DropdownButton<dynamic>(
-                        items: currencyKebun,
-                        onChanged: (currencyValue) {
-                          final snackBar = SnackBar(
-                            content: Text(
-                              'Selected Kebun is $currencyValue',
-                              style: const TextStyle(color: Colors.white),
-                            ),
-                          );
-                          Scaffold.of(context).showSnackBar(snackBar);
-                          setState(() {
-                            selectedKebun = currencyValue;
-                          });
-                        },
-                        value: selectedKebun,
-                        isExpanded: false,
-                        hint: const Text(
-                          "Pilih Kebun",
-                          style: TextStyle(color: Colors.white),
-                        ),
-                      ),
-                        ],
-                        );
+                  StreamBuilder<QuerySnapshot>(
+                  stream: Kebun.showKebun(),
+                  builder: (context, snapshot) {
+                     Widget widget = const Center(child: Text('Tidak ada data'));
+                    if(!snapshot.hasData){
+                      return widget;
+                    } else{
+                      List<DropdownMenuItem> currencyKebun = [];
+                      for(int i=0; i<snapshot.data!.docs.length; i++){
+                        var snap = snapshot.data!.docs[i];
+                        String kebun = snap['nama_kebun'];
+                        currencyKebun.add(DropdownMenuItem(child: Text(kebun),
+                        value: kebun,));
                       }
-                    },
+                      return Row(
+                      children: <Widget>[
+                    DropdownButton<dynamic>(
+                      items: currencyKebun,
+                      onChanged: (currencyValue) {
+                        final snackBar = SnackBar(
+                          content: Text(
+                            'Selected Kebun is $currencyValue',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                        Scaffold.of(context).showSnackBar(snackBar);
+                        setState(() {
+                          selectedKebun = currencyValue;
+                        });
+                      },
+                      value: selectedKebun,
+                      isExpanded: false,
+                      hint: const Text(
+                        "Pilih Kebun",
+                        style: TextStyle(color: Colors.white),
+                      ),
                     ),
+                      ],
+                      );
+                    }
+                  },
                   )
                 ],
               )
@@ -134,6 +132,7 @@ class FormQcState extends State<FormQc> {
               decoration: InputDecoration(
                 icon: const Icon(Icons.electrical_services),
                 hintText: 'Listrik',
+                  hintStyle: const TextStyle(color: Colors.grey),
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
@@ -311,7 +310,7 @@ class phWidget extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Sebelum (Semai, Apung, Tandon)",
+                  "Sebelum PH(Semai, Apung, Tandon)",
                   style: TextStyle(
                       fontFamily: textNunitoSans,
                       fontSize: 12,
@@ -325,6 +324,7 @@ class phWidget extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   controller: _phSebelumController,
                   decoration: InputDecoration(
+                 
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
@@ -337,7 +337,7 @@ class phWidget extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Tambah PPM (Semai, Apung, Tandon)",
+                  "Tambah PH (Semai, Apung, Tandon)",
                   style: TextStyle(
                       fontFamily: textNunitoSans,
                       fontSize: 12,
@@ -351,6 +351,7 @@ class phWidget extends StatelessWidget {
                   keyboardType: TextInputType.text,
                   controller: _phTambahController,
                   decoration: InputDecoration(
+                   
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(5.0)),
                   ),
@@ -363,7 +364,7 @@ class phWidget extends StatelessWidget {
             Column(
               children: [
                 Text(
-                  "Sesudah PPM (Semai, Apung, Tandon)",
+                  "Sesudah PH(Semai, Apung, Tandon)",
                   style: TextStyle(
                       fontFamily: textNunitoSans,
                       fontSize: 12,

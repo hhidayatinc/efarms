@@ -1,3 +1,6 @@
+import 'package:final_project/database/inventory.dart';
+import 'package:final_project/database/kebun.dart';
+import 'package:final_project/database/qc.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/register_page.dart';
 import 'package:final_project/service/auth.dart';
@@ -15,9 +18,10 @@ class LoginPage extends StatefulWidget {
 
 class LoginPageState extends State<LoginPage> {
   bool _isHidePass = true;
-  
+  final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+    final _formKey = GlobalKey<FormState>();
   void _togglePasswordvisibility() {
     setState(() {
       _isHidePass = !_isHidePass;
@@ -26,7 +30,9 @@ class LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Container(
+        body: Form(
+          key: _formKey,
+          child:Container(
       child: Center(
         child: ListView(
           padding: const EdgeInsets.all(10),
@@ -52,7 +58,14 @@ class LoginPageState extends State<LoginPage> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
-              
+              validator: (value) {
+                  if (value == null) {
+                    return 'Enter an Email Address';
+                  } else if (!value.contains('@')) {
+                    return 'Please enter a valid email address';
+                  }
+                  return null;
+                },
             ),
           ),
           Padding(
@@ -77,7 +90,14 @@ class LoginPageState extends State<LoginPage> {
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
               ),
-              
+              validator: (value){
+                  if(value == null){
+                   return 'Isi password';
+                  } else if(value.length < 6){
+                    return 'Password minimal 6 karakter';
+                  }
+                  return null;
+                },
             ),
           ),
           Padding(
@@ -113,6 +133,7 @@ class LoginPageState extends State<LoginPage> {
           fit: BoxFit.cover,
         ),
       ),
+          )
     ));
   }
    Widget _loginWithEmail() {
@@ -125,10 +146,14 @@ class LoginPageState extends State<LoginPage> {
           //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: Colors.green,
           onPressed: () async {
-            SignInSignUpResult? result = await AuthService.signInWithEmail(
+            if(_formKey.currentState!.validate()){
+              SignInSignUpResult? result = await AuthService.signInWithEmail(
                 email: _emailController.text, pass: _passController.text);
             // ignore: unnecessary_null_comparison
             if (result.user != null) {
+              Kebun.userUid = _auth.currentUser!.uid;
+              Qc.userUid = _auth.currentUser!.uid;
+              Inventory.userUid = _auth.currentUser!.uid;
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const HomePage()));
             } else {
@@ -145,6 +170,7 @@ class LoginPageState extends State<LoginPage> {
                                 },
                                 child: const Text("OK"))
                           ]));
+            }
             }
           },
           child: const Text(
