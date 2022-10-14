@@ -29,7 +29,12 @@ class Kebun{
   }
 
   static Future<void>? updateKebun({
-    String? nama, alamat, luas, komoditas, jenis, kebunId
+    String? nama, 
+    String? alamat,
+    String? luas,
+    String? komoditas,
+    String? jenis,
+    String? kebunId
   }) async{
     DocumentReference df = _mainCollection.doc(userUid).collection('kebun').doc(kebunId);
     Map<String, dynamic> data = <String, dynamic>{

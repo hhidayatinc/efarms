@@ -107,69 +107,91 @@ class FormKebunState extends State<FormKebun> {
         const SizedBox(
           height: 20,
         ),
-        SizedBox(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ClipRRect(
-                  borderRadius: BorderRadius.circular(10),
-                  child: FlatButton(
-                    onPressed: () {
-                      showDialog(
-                          context: context,
-                          builder: (context) => AlertDialog(
-                                  title: const Text("Konfirmasi"),
-                                  content: const Text(
-                                      'Apakah anda yakin ingin membuang data ini?'),
-                                  actions: <Widget>[
-                                    // ignore: deprecated_member_use
-                                    FlatButton(
-                                        onPressed: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const KebunPage()));
-                                        },
-                                        child: const Text("Ya")),
-                                    FlatButton(
-                                        onPressed: () {
-                                          Navigator.pop(context);
-                                        },
-                                        child: const Text("Tidak"))
-                                  ]));
-                    },
-                    color: Colors.green,
-                    child: const Text(
-                      'Buang',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                  )),
-              const SizedBox(
-                width: 50,
-              ),
-              ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: FlatButton(
-                    color: Colors.green,
-                    onPressed: () async {
-                      await Kebun.addNewKebun(
-                          nama: _namaController.text,
-                          alamat: _alamatController.text,
-                          jenis: _jenisController.text,
-                          komoditas: _komoditasController.text,
-                          luas: _luasController.text);
-                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data kebun baru berhasil ditambahkan!')));
-                    },
-                    child: const Text(
-                      'Simpan',
-                      style: TextStyle(color: Colors.white),
-                    )),
-              )
-            ],
-          ),
-        )
+        ButtonForm(namaController: _namaController, alamatController: _alamatController, jenisController: _jenisController, komoditasController: _komoditasController, luasController: _luasController)
       ])),
+    );
+  }
+}
+
+class ButtonForm extends StatelessWidget {
+  const ButtonForm({
+    Key? key,
+    required TextEditingController namaController,
+    required TextEditingController alamatController,
+    required TextEditingController jenisController,
+    required TextEditingController komoditasController,
+    required TextEditingController luasController,
+  }) : _namaController = namaController, _alamatController = alamatController, _jenisController = jenisController, _komoditasController = komoditasController, _luasController = luasController, super(key: key);
+
+  final TextEditingController _namaController;
+  final TextEditingController _alamatController;
+  final TextEditingController _jenisController;
+  final TextEditingController _komoditasController;
+  final TextEditingController _luasController;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          ClipRRect(
+              borderRadius: BorderRadius.circular(10),
+              child: FlatButton(
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                              title: const Text("Konfirmasi"),
+                              content: const Text(
+                                  'Apakah anda yakin ingin membuang data ini?'),
+                              actions: <Widget>[
+                                // ignore: deprecated_member_use
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const KebunPage()));
+                                    },
+                                    child: const Text("Ya")),
+                                FlatButton(
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                    child: const Text("Tidak"))
+                              ]));
+                },
+                color: Colors.green,
+                child: const Text(
+                  'Buang',
+                  style: TextStyle(color: Colors.white),
+                ),
+              )),
+          const SizedBox(
+            width: 50,
+          ),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: FlatButton(
+                color: Colors.green,
+                onPressed: () async {
+                  await Kebun.addNewKebun(
+                      nama: _namaController.text,
+                      alamat: _alamatController.text,
+                      jenis: _jenisController.text,
+                      komoditas: _komoditasController.text,
+                      luas: _luasController.text);
+                  ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Data kebun baru berhasil ditambahkan!')));
+                },
+                child: const Text(
+                  'Simpan',
+                  style: TextStyle(color: Colors.white),
+                )),
+          )
+        ],
+      ),
     );
   }
 }

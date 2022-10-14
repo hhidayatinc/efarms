@@ -41,6 +41,8 @@ dependencies:
   google_sign_in: ^5.4.2
   flutterfire_ui: ^0.4.2+3
   url_launcher: ^6.1.6
+  date_field: ^3.0.1
+  dropdown_search: ^3.0.1
 
 dev_dependencies:
   flutter_test:
