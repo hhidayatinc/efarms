@@ -43,6 +43,7 @@ dependencies:
   url_launcher: ^6.1.6
   date_field: ^3.0.1
   dropdown_search: ^3.0.1
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,12 @@ flutter:
     - assets/image/lokasi.png
     - assets/image/video.png
     - assets/image/wallpaper3.png
+    - assets/data/artikel.json
+    - assets/image/artikel1.jpg
+    - assets/image/artikel2.jpg
+    - assets/image/artikel3.jpg
+    - assets/image/artikel4.jpg
+    - assets/image/artikel5.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

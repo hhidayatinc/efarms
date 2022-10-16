@@ -12,6 +12,7 @@ class FormKebun extends StatefulWidget {
 }
 
 class FormKebunState extends State<FormKebun> {
+  
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _alamatController = TextEditingController();
   final TextEditingController _luasController = TextEditingController();
@@ -89,6 +90,9 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
+                    onChanged: (value) {
+                      
+                    },
                   ),
                 ),
                 Padding(
@@ -108,6 +112,7 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
+                    onChanged: (value) {},
                   ),
                 ),
                 Padding(
@@ -127,6 +132,7 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
+                    onChanged: (value) {},
                   ),
                 ),
                 Padding(
@@ -146,6 +152,7 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
+                    onChanged: (value) {},
                   ),
                 ),
               ],
@@ -210,6 +217,20 @@ class FormKebunState extends State<FormKebun> {
                                 const SnackBar(
                                     content: Text(
                                         'Data kebun baru berhasil ditambahkan!')));
+                                        Navigator.of(context).pop();
+                          } else{
+                            await Kebun.updateKebun(
+                              nama: _namaController.text,
+                                alamat: _alamatController.text,
+                                jenis: _jenisController.text,
+                                komoditas: _komoditasController.text,
+                                luas: _luasController.text
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Data kebun berhasil diperbarui!')));
+                                        Navigator.of(context).pop();
                           }
                         },
                         child: const Text(

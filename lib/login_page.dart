@@ -54,6 +54,7 @@ class LoginPageState extends State<LoginPage> {
               keyboardType: TextInputType.emailAddress,
               controller: _emailController,
               decoration: InputDecoration(
+                icon: Icon(Icons.email),
                 hintText: 'Email',
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
@@ -76,7 +77,7 @@ class LoginPageState extends State<LoginPage> {
               obscureText: _isHidePass,
               decoration: InputDecoration(
                 hintText: 'Password',
-                
+                icon: Icon(Icons.password),
                   suffixIcon: GestureDetector(
                     onTap: () {
                       _togglePasswordvisibility();
@@ -115,15 +116,6 @@ class LoginPageState extends State<LoginPage> {
             child: _loginWithGoogle(context)
           ),
           _registerButton(context)
-          // Padding(padding:EdgeInsets.only(left: 90),child: Text(
-          //     'Dont have an account?',
-          //     style: TextStyle(
-          //         color: Colors.grey,
-          //         fontFamily: 'NTR',
-          //         fontSize: 20),
-          //   ),),
-             //TextButton(onPressed: () {Navigator.of(context).push(MaterialPageRoute(builder: (context) => RegisterPage()));}, child: const Text('Sign Up', style: TextStyle(fontSize: 20, color: Colors.green),)),
-
         ],
       ),
       ),
@@ -154,9 +146,14 @@ class LoginPageState extends State<LoginPage> {
               Kebun.userUid = _auth.currentUser!.uid;
               Qc.userUid = _auth.currentUser!.uid;
               Inventory.userUid = _auth.currentUser!.uid;
+              ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Berhasil masuk!')));
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const HomePage()));
-            } else {
+            // ignore: unnecessary_null_comparison
+            } else if (result.user == null ){
               showDialog(
                   context: context,
                   builder: (context) => AlertDialog(
@@ -192,8 +189,15 @@ class LoginPageState extends State<LoginPage> {
               //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
               color: Colors.green,
               onPressed: () async{
+              Kebun.userUid = _auth.currentUser!.uid;
+              Qc.userUid = _auth.currentUser!.uid;
+              Inventory.userUid = _auth.currentUser!.uid;
                 User? user = await Authentication.signInWithGoogle(context: context);
                 if(user != null){
+                  ScaffoldMessenger.of(context).showSnackBar(
+                                const SnackBar(
+                                    content: Text(
+                                        'Berhasil masuk!')));
                   Navigator.of(context)
                          .push(MaterialPageRoute(builder: (context) {
                        return const HomePage();

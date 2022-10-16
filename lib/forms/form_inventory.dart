@@ -19,8 +19,8 @@ class FormInventoryState extends State<FormInventory> {
   final TextEditingController _sisaController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var textNunitoSans = 'Nunito Sans';
-  DateTime _tglCatat = DateTime.now();
-  DateTime _tglUpdate = DateTime.now();
+  DateTime? _tglCatat = DateTime.now();
+  DateTime? _tglUpdate = DateTime.now();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -54,45 +54,50 @@ class FormInventoryState extends State<FormInventory> {
             children: [
               Row(
                 children: [
-                  DateTimeField(
-                    onDateSelected: (DateTime value) {
-                      setState(() {
-                        _tglCatat = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
-                      ),
-                      labelText: 'Tanggal Entry Data',
-                      icon: const Icon(Icons.date_range),
-                    ),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2030),
-                    mode: DateTimeFieldPickerMode.date,
-                    selectedDate: _tglCatat,
-                  ),
+                  Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: DateTimeField(
+                        onDateSelected: (DateTime value) {
+                          setState(() {
+                            _tglCatat = value;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(5.0),
+                          ),
+                          labelText: 'Tanggal Entry Data',
+                          icon: const Icon(Icons.date_range),
+                        ),
+                        firstDate: DateTime.now(),
+                        lastDate: DateTime(2030),
+                        mode: DateTimeFieldPickerMode.date,
+                        selectedDate: _tglCatat,
+                      )),
                   const SizedBox(
                     width: 10,
                   ),
-                  DateTimeField(
-                    onDateSelected: (DateTime value) {
-                      setState(() {
-                        _tglUpdate = value;
-                      });
-                    },
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(5.0),
+                  Padding(
+                    padding: const EdgeInsets.all(5),
+                    child: DateTimeField(
+                      onDateSelected: (DateTime value) {
+                        setState(() {
+                          _tglUpdate = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        labelText: 'Tanggal Update Data',
+                        icon: const Icon(Icons.date_range),
                       ),
-                      labelText: 'Tanggal Update Data',
-                      icon: const Icon(Icons.date_range),
+                      firstDate: DateTime.now(),
+                      lastDate: DateTime(2030),
+                      mode: DateTimeFieldPickerMode.date,
+                      selectedDate: _tglUpdate,
                     ),
-                    firstDate: DateTime.now(),
-                    lastDate: DateTime(2030),
-                    mode: DateTimeFieldPickerMode.date,
-                    selectedDate: _tglUpdate,
-                  ),
+                  )
                 ],
               ),
               const SizedBox(
@@ -180,7 +185,7 @@ class FormInventoryState extends State<FormInventory> {
                   ],
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 20,
               ),
               SizedBox(
@@ -242,6 +247,7 @@ class FormInventoryState extends State<FormInventory> {
                                   const SnackBar(
                                       content: Text(
                                           'Data inventory baru berhasil ditambahkan!')));
+                              Navigator.of(context).pop();
                             }
                           },
                           child: const Text(

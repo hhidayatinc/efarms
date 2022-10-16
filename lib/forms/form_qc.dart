@@ -15,6 +15,7 @@ class FormQc extends StatefulWidget {
 }
 
 class FormQcState extends State<FormQc> {
+  final _formKey = GlobalKey<FormState>();
   final TextEditingController _listrikController = TextEditingController();
   final TextEditingController _ppmSebelumController = TextEditingController();
   final TextEditingController _ppmSesudahController = TextEditingController();
@@ -52,7 +53,9 @@ class FormQcState extends State<FormQc> {
         centerTitle: true,
         backgroundColor: Colors.white,
       ),
-      body: ListView(
+      body: Form(
+        key: _formKey,
+      child:ListView(
         padding: const EdgeInsets.all(15),
         physics: const BouncingScrollPhysics(),
         children: [
@@ -60,6 +63,7 @@ class FormQcState extends State<FormQc> {
             children: [
               Row(
                 children: [
+                  Padding(padding: EdgeInsets.all(1), child:
                   DateTimeField(
                     onDateSelected: (DateTime value) {
                       setState(() {
@@ -77,6 +81,7 @@ class FormQcState extends State<FormQc> {
                     lastDate: DateTime(2030),
                     mode: DateTimeFieldPickerMode.date,
                     selectedDate: _chooseDate,
+                  ),
                   ),
                   StreamBuilder<QuerySnapshot>(
                   stream: Kebun.showKebun(),
@@ -187,6 +192,7 @@ class FormQcState extends State<FormQc> {
         
         ],
       ),
+      )
     );
   }
 }
@@ -270,6 +276,7 @@ class ButtonForm extends StatelessWidget {
               phSesudah: _phTambahController.text
           );
           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Quality Control baru berhasil ditambahkan!')));
+          Navigator.of(context).pop();
         },
         child: const Text(
           'Simpan',

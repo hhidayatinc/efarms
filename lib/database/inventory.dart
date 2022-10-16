@@ -34,9 +34,9 @@ class Inventory {
     String? tanggalCatat,
     String? tanggalUpdate,
     String? namaBarang,
-    int? jumlahBrgAwal,
-    int? brgTerpakai,
-    int? sisa,
+    String? jumlahBrgAwal,
+    String? brgTerpakai,
+    String? sisa,
   }) async{
     DocumentReference df = _mainCollection.doc(userUid).collection('inventory').doc(inventoryId);
      Map<String, dynamic> data = <String, dynamic>{
