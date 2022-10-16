@@ -1,4 +1,4 @@
-// ignore_for_file: deprecated_member_use
+// ignore_for_file: deprecated_member_use, duplicate_ignore
 
 import 'package:date_field/date_field.dart';
 import 'package:final_project/database/inventory.dart';

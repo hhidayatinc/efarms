@@ -1,6 +1,9 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:convert';
 import 'package:final_project/database/artikel.dart';
 import 'package:final_project/login_page.dart';
+import 'package:final_project/pages/artikel_page.dart';
 import 'package:final_project/pages/inventory_page.dart';
 import 'package:final_project/pages/kebun_page.dart';
 import 'package:final_project/pages/qc_page.dart';
@@ -269,7 +272,9 @@ class HomePageState extends State<HomePage> {
                                   itemBuilder: (context, index) {
                                     return Container(padding: const EdgeInsets.all(8),
                                         decoration: boxDecoration(),width: 180.0,child: InkWell(
-                                      onTap: null,
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => ArtikelPage(artikel: items[index])));
+                                      },
                                       child: Column(
                                         mainAxisAlignment:
                                             MainAxisAlignment.start,

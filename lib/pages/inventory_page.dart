@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/inventory.dart';
 import 'package:final_project/forms/form_inventory.dart';

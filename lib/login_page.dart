@@ -54,7 +54,7 @@ class LoginPageState extends State<LoginPage> {
               keyboardType: TextInputType.emailAddress,
               controller: _emailController,
               decoration: InputDecoration(
-                icon: Icon(Icons.email),
+                icon: const Icon(Icons.email),
                 hintText: 'Email',
                 border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10.0)),
@@ -77,7 +77,7 @@ class LoginPageState extends State<LoginPage> {
               obscureText: _isHidePass,
               decoration: InputDecoration(
                 hintText: 'Password',
-                icon: Icon(Icons.password),
+                icon: const Icon(Icons.password),
                   suffixIcon: GestureDetector(
                     onTap: () {
                       _togglePasswordvisibility();
