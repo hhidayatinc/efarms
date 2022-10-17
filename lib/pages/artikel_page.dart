@@ -1,4 +1,4 @@
-import 'package:auto_size_text/auto_size_text.dart';
+
 import 'package:final_project/database/artikel.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -41,7 +41,7 @@ class ArtikelPage extends StatelessWidget {
           physics: const BouncingScrollPhysics(),
           shrinkWrap: true,
           children: [
-            SizedBox(height: 10,),
+            const SizedBox(height: 10,),
             Text(
               artikel.judul,
               style: TextStyle(
@@ -55,7 +55,7 @@ class ArtikelPage extends StatelessWidget {
             Center(
               child: Image.asset(artikel.gambar, fit: BoxFit.contain,),
             ),
-            SizedBox(height: 5,),
+            const SizedBox(height: 5,),
            
                 Text("Tanggal: " + artikel.tanggal, style: TextStyle(
                   fontFamily: textNtr,
@@ -65,7 +65,7 @@ class ArtikelPage extends StatelessWidget {
               textAlign: TextAlign.left),
     
               
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Text(artikel.konten, style: TextStyle(
                   fontFamily: textNunitoSans,
                   color: Colors.black,
@@ -73,7 +73,7 @@ class ArtikelPage extends StatelessWidget {
                   fontSize: 16),
               textAlign: TextAlign.justify),
 
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
                Text("Sumber: " + artikel.sumber, style: TextStyle(
                   fontFamily: textNtr,
                   color: Colors.grey,

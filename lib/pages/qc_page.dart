@@ -74,12 +74,7 @@ class QualityControlState extends State<QualityControl> {
                     String qcId = snapshot.data!.docs[index].id;
                     String tanggal = qcList['tanggal'];
                     String kebun = qcList['kebun'];
-                    String listrik = qcList['listrik'];
-                    String ppmSebelum = qcList['ppmSebelum'];
-                    String ppmTambah = qcList['ppmTambah'];
                     String ppmSesudah = qcList['ppmSesudah'];
-                    String phSebelum = qcList['phSebelum'];
-                    String phTambah = qcList['phTambah'];
                     String phSesudah = qcList['phSesudah'];
                     return Container(
                       height: 150.0,
@@ -89,8 +84,8 @@ class QualityControlState extends State<QualityControl> {
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            spreadRadius: 3,
+                            color: Colors.grey.withOpacity(0.3),
+                            spreadRadius: 7,
                             blurRadius: 5,
                             offset: const Offset(
                                 0, 3), // changes position of shadow
@@ -101,9 +96,12 @@ class QualityControlState extends State<QualityControl> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Padding(
-                            padding: const EdgeInsets.only(left: 5, right: 5),
-                            child: Image.asset("assets/image/qc.png"),
-                          ),
+                              padding: const EdgeInsets.all(10),
+                              child: Image.asset(
+                                "assets/image/qc.png",
+                                width: 50,
+                                height: 50,
+                              )),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
@@ -113,36 +111,27 @@ class QualityControlState extends State<QualityControl> {
                                     style: TextStyle(
                                       fontFamily: textNtr,
                                       fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.grey,
                                     )),
-                                const SizedBox(
-                                  height: 5,
-                                ),
                                 Text('Kebun: $kebun',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.normal,
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w600,
                                       color: Colors.black,
                                     )),
-                                const SizedBox(
-                                  height: 5,
-                                ),
                                 Text('PPM: $ppmSesudah',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 12,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
-                                const SizedBox(
-                                  height: 5,
-                                ),
                                 Text('pH: $phSesudah',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 12,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
@@ -150,7 +139,7 @@ class QualityControlState extends State<QualityControl> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.only(left: 10, right: 5),
+                            padding: const EdgeInsets.all(10),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
@@ -179,6 +168,12 @@ class QualityControlState extends State<QualityControl> {
                                                       await Qc.deleteQc(
                                                           qcId: qcId);
                                                       Navigator.pop(context);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                                  content: Text(
+                                                                      'Berhasil di hapus!')));
                                                     },
                                                     child: const Text("Yes"))
                                               ],

@@ -11,7 +11,6 @@ class AuthService {
           email: email, password: pass);
       return SignInSignUpResult(user: result.user!, message: '');
     } catch (e) {
-      // ignore: null_check_always_fails
       return SignInSignUpResult(message: e.toString(), user: null!);
     }
   }

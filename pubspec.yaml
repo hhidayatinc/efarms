@@ -43,7 +43,7 @@ dependencies:
   url_launcher: ^6.1.6
   date_field: ^3.0.1
   dropdown_search: ^3.0.1
-  auto_size_text: ^3.0.0
+  date_format: ^2.0.7
 
 dev_dependencies:
   flutter_test:

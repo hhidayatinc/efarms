@@ -54,7 +54,8 @@ class FormInventoryState extends State<FormInventory> {
             children: [
               Row(
                 children: [
-                  Padding(
+                  Container(
+                    width: 100,
                       padding: const EdgeInsets.all(5),
                       child: DateTimeField(
                         onDateSelected: (DateTime value) {
@@ -74,10 +75,8 @@ class FormInventoryState extends State<FormInventory> {
                         mode: DateTimeFieldPickerMode.date,
                         selectedDate: _tglCatat,
                       )),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Padding(
+                  Container(
+                    width: 100,
                     padding: const EdgeInsets.all(5),
                     child: DateTimeField(
                       onDateSelected: (DateTime value) {
@@ -100,13 +99,11 @@ class FormInventoryState extends State<FormInventory> {
                   )
                 ],
               ),
-              const SizedBox(
-                height: 5,
-              ),
               Center(
                 child: Column(
                   children: [
-                    Padding(
+                    Container(
+                      width: 100,
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
@@ -125,7 +122,8 @@ class FormInventoryState extends State<FormInventory> {
                         },
                       ),
                     ),
-                    Padding(
+                    Container(
+                      width: 100,
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
@@ -144,7 +142,8 @@ class FormInventoryState extends State<FormInventory> {
                         },
                       ),
                     ),
-                    Padding(
+                    Container(
+                      width: 100,
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
@@ -163,7 +162,8 @@ class FormInventoryState extends State<FormInventory> {
                         },
                       ),
                     ),
-                    Padding(
+                    Container(
+                      width: 100,
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,

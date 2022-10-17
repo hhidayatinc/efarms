@@ -177,6 +177,12 @@ class KebunPageState extends State<KebunPage> {
                                                       await Kebun.deleteKebun(
                                                           kebunId: kebunId);
                                                       Navigator.pop(context);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                                  content: Text(
+                                                                      'Data berhasil di hapus!')));
                                                     },
                                                     child: const Text("Yes"))
                                               ],
