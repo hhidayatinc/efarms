@@ -21,6 +21,8 @@ class RegisterPageState extends State<RegisterPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  String? email;
+  String? password;
   void _togglePasswordvisibility() {
     setState(() {
       _isHidePass = !_isHidePass;
@@ -67,6 +69,9 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                        onSaved: (val){
+                          email = val;
+                        },
                       ),
                     ),
                     Padding(
@@ -101,6 +106,9 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
+                        onSaved: (val){
+                          password=val;
+                        },
                       ),
                     ),
                     Padding(
@@ -131,31 +139,53 @@ class RegisterPageState extends State<RegisterPage> {
           color: Colors.green,
           onPressed: () async {
             if (_formKey.currentState!.validate()) {
-              SignInSignUpResult result = await AuthService.createUser(
-                  email: _emailController.text, pass: _passController.text);
-              // ignore: unnecessary_null_comparison
-              if (result.user != null) {
-                Kebun.userUid = _auth.currentUser!.uid;
-                Qc.userUid = _auth.currentUser!.uid;
-                Inventory.userUid = _auth.currentUser!.uid;
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-              } else {
-                showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                            title: const Text("Error"),
-                            content: Text(result.message.toString()),
-                            actions: <Widget>[
-                              // ignore: deprecated_member_use
-                              FlatButton(
-                                  onPressed: () {
-                                    Navigator.pop(context);
-                                  },
-                                  child: const Text("OK"))
-                            ]));
-              }
-            }
+                  _formKey.currentState!.save();
+
+                  AuthenticationHelper()
+                      .signUp(email: email!, password: password!)
+                      .then((result) {
+                    if (result == null) {
+                      Kebun.userUid = _auth.currentUser!.uid;
+                      Qc.userUid = _auth.currentUser!.uid;
+                      Inventory.userUid = _auth.currentUser!.uid;
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => const HomePage()));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          result,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ));
+                    }
+                  });
+                }
+            // if (_formKey.currentState!.validate()) {
+            //   SignInSignUpResult result = await AuthService.createUser(
+            //       email: _emailController.text, pass: _passController.text);
+            //   // ignore: unnecessary_null_comparison
+            //   if (result.user != null) {
+            //     Kebun.userUid = _auth.currentUser!.uid;
+            //     Qc.userUid = _auth.currentUser!.uid;
+            //     Inventory.userUid = _auth.currentUser!.uid;
+            //     Navigator.push(context,
+            //         MaterialPageRoute(builder: (context) => const HomePage()));
+            //   } else {
+            //     showDialog(
+            //         context: context,
+            //         builder: (context) => AlertDialog(
+            //                 title: const Text("Error"),
+            //                 content: Text(result.message.toString()),
+            //                 actions: <Widget>[
+            //                   // ignore: deprecated_member_use
+            //                   FlatButton(
+            //                       onPressed: () {
+            //                         Navigator.pop(context);
+            //                       },
+            //                       child: const Text("OK"))
+            //                 ]));
+            //   }
+            // }
           },
           child: const Text(
             "Sign Up",

@@ -1,9 +1,12 @@
 // ignore_for_file: deprecated_member_use, duplicate_ignore
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:date_field/date_field.dart';
 import 'package:final_project/database/inventory.dart';
+import 'package:final_project/database/kebun.dart';
 import 'package:final_project/pages/inventory_page.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class FormInventory extends StatefulWidget {
   const FormInventory({Key? key}) : super(key: key);
@@ -17,10 +20,53 @@ class FormInventoryState extends State<FormInventory> {
   final TextEditingController _jmlhBrgController = TextEditingController();
   final TextEditingController _brgTerpakaiController = TextEditingController();
   final TextEditingController _sisaController = TextEditingController();
+  final TextEditingController _tglCatatController = TextEditingController();
+  final TextEditingController _tglUpdateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var textNunitoSans = 'Nunito Sans';
-  DateTime? _tglCatat = DateTime.now();
-  DateTime? _tglUpdate = DateTime.now();
+  DateTime tglCatat = DateTime.now();
+  DateTime tglUpdate = DateTime.now();
+  var selectedKebun;
+  String? setTglCatat;
+  String? setTglUpdate;
+
+  Future<void> _selectTglCatat(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: tglCatat,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+    if (picked != null) {
+      setState(() {
+        tglCatat = picked;
+        _tglCatatController.text = DateFormat.yMd().format(tglCatat);
+      });
+    }
+  }
+
+  Future<void> _selectTglUpdate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: tglUpdate,
+        initialDatePickerMode: DatePickerMode.day,
+        firstDate: DateTime(2015),
+        lastDate: DateTime(2101));
+    if (picked != null) {
+      setState(() {
+        tglUpdate = picked;
+        _tglUpdateController.text = DateFormat.yMd().format(tglUpdate);
+      });
+    }
+  }
+
+  @override
+  void initState() {
+    _tglCatatController.text = DateFormat.yMd().format(DateTime.now());
+    _tglUpdateController.text = DateFormat.yMd().format(DateTime.now());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -52,56 +98,111 @@ class FormInventoryState extends State<FormInventory> {
             padding: const EdgeInsets.all(15),
             physics: const BouncingScrollPhysics(),
             children: [
-              Row(
-                children: [
-                  Container(
-                    width: 100,
-                      padding: const EdgeInsets.all(5),
-                      child: DateTimeField(
-                        onDateSelected: (DateTime value) {
-                          setState(() {
-                            _tglCatat = value;
-                          });
-                        },
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          labelText: 'Tanggal Entry Data',
-                          icon: const Icon(Icons.date_range),
-                        ),
-                        firstDate: DateTime.now(),
-                        lastDate: DateTime(2030),
-                        mode: DateTimeFieldPickerMode.date,
-                        selectedDate: _tglCatat,
-                      )),
-                  Container(
-                    width: 100,
-                    padding: const EdgeInsets.all(5),
-                    child: DateTimeField(
-                      onDateSelected: (DateTime value) {
-                        setState(() {
-                          _tglUpdate = value;
-                        });
-                      },
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(5.0),
-                        ),
-                        labelText: 'Tanggal Update Data',
-                        icon: const Icon(Icons.date_range),
-                      ),
-                      firstDate: DateTime.now(),
-                      lastDate: DateTime(2030),
-                      mode: DateTimeFieldPickerMode.date,
-                      selectedDate: _tglUpdate,
-                    ),
-                  )
-                ],
-              ),
-              Center(
-                child: Column(
+              Container(
+                padding: const EdgeInsets.all(10),
+                child: Row(
                   children: [
+                    const Icon(Icons.category, color: Colors.grey,),
+                    const SizedBox(width: 15,),
+                    StreamBuilder<QuerySnapshot>(
+                      stream: Kebun.showKebun(),
+                      builder: (context, snapshot) {
+                        Widget widget =
+                            const Center(child: Text('Tidak ada data'));
+                        if (!snapshot.hasData) {
+                          return widget;
+                        } else {
+                          List<DropdownMenuItem> currencyKebun = [];
+                          for (int i = 0;
+                              i < snapshot.data!.docs.length;
+                              i++) {
+                            var snap = snapshot.data!.docs[i];
+                            String kebun = snap['nama_kebun'];
+                            currencyKebun.add(DropdownMenuItem(
+                              child: Text(kebun),
+                              value: kebun,
+                            ));
+                          }
+                          return Row(
+                            children: <Widget>[
+                              DropdownButton<dynamic>(
+                                items: currencyKebun,
+                                onChanged: (currencyValue) {
+                                  final snackBar = SnackBar(
+                                    content: Text(
+                                      'Selected Kebun is $currencyValue',
+                                      style: const TextStyle(
+                                          color: Colors.white),
+                                    ),
+                                  );
+                                  Scaffold.of(context).showSnackBar(snackBar);
+                                  setState(() {
+                                    selectedKebun = currencyValue;
+                                  });
+                                },
+                                value: selectedKebun,
+                                isExpanded: false,
+                                hint: const Text(
+                                  "Pilih Kebun",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                      )
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  _selectTglCatat(context);
+                },
+                child: Container(
+                  width: 100,
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    enabled: false,
+                    keyboardType: TextInputType.text,
+                    controller: _tglCatatController,
+                    onSaved: (String? val) {
+                      setTglCatat = val;
+                    },
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.date_range),
+                      hintText: 'Tanggal Catat',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                    ),
+                  ),
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  _selectTglUpdate(context);
+                },
+                child: Container(
+                  width: 100,
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    enabled: false,
+                    keyboardType: TextInputType.text,
+                    controller: _tglUpdateController,
+                    onSaved: (String? val) {
+                      setTglUpdate = val;
+                    },
+                    decoration: InputDecoration(
+                      icon: const Icon(Icons.date_range),
+                      hintText: 'Tanggal Update',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                    ),
+                  ),
+                ),
+              ),
                     Container(
                       width: 100,
                       padding: const EdgeInsets.all(10),
@@ -182,11 +283,11 @@ class FormInventoryState extends State<FormInventory> {
                         },
                       ),
                     ),
-                  ],
-                ),
-              ),
+                  
+                
+              
               const SizedBox(
-                height: 20,
+                height: 50,
               ),
               SizedBox(
                 child: Row(
@@ -236,8 +337,9 @@ class FormInventoryState extends State<FormInventory> {
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
                               await Inventory.addInventory(
-                                tanggalCatat: _tglCatat.toString(),
-                                tanggalUpdate: _tglUpdate.toString(),
+                                kebun: selectedKebun,
+                                tanggalCatat: tglCatat.toString(),
+                                tanggalUpdate: tglUpdate.toString(),
                                 namaBarang: _namaController.text,
                                 jumlahBrgAwal: _jmlhBrgController.text,
                                 brgTerpakai: _brgTerpakaiController.text,

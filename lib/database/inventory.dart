@@ -9,6 +9,7 @@ class Inventory {
   static String messageDelete = "Data inventory berhasil dihapus!";
   static String? userUid;
   static Future<void>? addInventory({
+    String? kebun,
     String? tanggalCatat,
     String? tanggalUpdate,
     String? namaBarang,
@@ -19,6 +20,7 @@ class Inventory {
     DocumentReference df = _mainCollection.doc(userUid).collection('inventory').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
+      "kebun" : kebun,
       "tanggal_catat" : tanggalCatat,
       "tanggal_update" : tanggalUpdate,
       "nama_barang" : namaBarang,
@@ -31,6 +33,7 @@ class Inventory {
 
   static Future<void>? updateInventory({
     String? inventoryId,
+    String? kebun,
     String? tanggalCatat,
     String? tanggalUpdate,
     String? namaBarang,
@@ -40,6 +43,7 @@ class Inventory {
   }) async{
     DocumentReference df = _mainCollection.doc(userUid).collection('inventory').doc(inventoryId);
      Map<String, dynamic> data = <String, dynamic>{
+      "kebun" : kebun,
       "tanggal_catat" : tanggalCatat,
       "tanggal_update" : tanggalUpdate,
       "nama_barang" : namaBarang,

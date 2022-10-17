@@ -21,6 +21,8 @@ class LoginPageState extends State<LoginPage> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passController = TextEditingController();
+  String? email;
+  String? password;
     final _formKey = GlobalKey<FormState>();
   void _togglePasswordvisibility() {
     setState(() {
@@ -67,6 +69,9 @@ class LoginPageState extends State<LoginPage> {
                   }
                   return null;
                 },
+                onSaved: (value){
+                  email = value;
+                },
             ),
           ),
           Padding(
@@ -98,6 +103,9 @@ class LoginPageState extends State<LoginPage> {
                     return 'Password minimal 6 karakter';
                   }
                   return null;
+                },
+                onSaved: (value){
+                  password = value;
                 },
             ),
           ),
@@ -138,37 +146,59 @@ class LoginPageState extends State<LoginPage> {
           //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: Colors.green,
           onPressed: () async {
-            if(_formKey.currentState!.validate()){
-              SignInSignUpResult? result = await AuthService.signInWithEmail(
-                email: _emailController.text, pass: _passController.text);
-            // ignore: unnecessary_null_comparison
-            if (result.user != null) {
-              Kebun.userUid = _auth.currentUser!.uid;
-              Qc.userUid = _auth.currentUser!.uid;
-              Inventory.userUid = _auth.currentUser!.uid;
-              ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Berhasil masuk!')));
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
-            // ignore: unnecessary_null_comparison
-            } else if (result.user == null ){
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                          title: const Text("Error"),
-                          content: Text(result.message.toString()),
-                          actions: <Widget>[
-                            // ignore: deprecated_member_use
-                            FlatButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("OK"))
-                          ]));
-            }
-            }
+            if (_formKey.currentState!.validate()) {
+                  _formKey.currentState!.save();
+
+                  AuthenticationHelper()
+                      .signIn(email: email!, password: password!)
+                      .then((result) {
+                    if (result == null) {
+                      Kebun.userUid = _auth.currentUser!.uid;
+                      Qc.userUid = _auth.currentUser!.uid;
+                      Inventory.userUid = _auth.currentUser!.uid;
+                      Navigator.pushReplacement(context,
+                          MaterialPageRoute(builder: (context) => const HomePage()));
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: Text(
+                          result,
+                          style: const TextStyle(fontSize: 16),
+                        ),
+                      ));
+                    }
+                  });
+                }
+            // if(_formKey.currentState!.validate()){
+            //   SignInSignUpResult? result = await AuthService.signInWithEmail(
+            //     email: _emailController.text, pass: _passController.text);
+            // // ignore: unnecessary_null_comparison
+            // if (result.user != null) {
+            //   Kebun.userUid = _auth.currentUser!.uid;
+            //   Qc.userUid = _auth.currentUser!.uid;
+            //   Inventory.userUid = _auth.currentUser!.uid;
+            //   ScaffoldMessenger.of(context).showSnackBar(
+            //                     const SnackBar(
+            //                         content: Text(
+            //                             'Berhasil masuk!')));
+            //   Navigator.push(context,
+            //       MaterialPageRoute(builder: (context) => const HomePage()));
+            // // ignore: unnecessary_null_comparison
+            // } else if (result.user == null ){
+            //   showDialog(
+            //       context: context,
+            //       builder: (context) => AlertDialog(
+            //               title: const Text("Error"),
+            //               content: Text(result.message.toString()),
+            //               actions: <Widget>[
+            //                 // ignore: deprecated_member_use
+            //                 FlatButton(
+            //                     onPressed: () {
+            //                       Navigator.pop(context);
+            //                     },
+            //                     child: const Text("OK"))
+            //               ]));
+            // }
+            // }
           },
           child: const Text(
             "Sign in",

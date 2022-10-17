@@ -58,6 +58,7 @@ class InventoryPageState extends State<InventoryPage>{
                   itemBuilder: (context, index) {
                     var inventList = snapshot.data!.docs[index];
                     String inventId = snapshot.data!.docs[index].id;
+                    String kebun = inventList.get('kebun');
                    String tglCatat = inventList.get('tanggal_catat');
                    String tglUpdate = inventList.get('tanggal_update');
                    String namaBrg = inventList.get('nama_barang');
@@ -86,34 +87,21 @@ class InventoryPageState extends State<InventoryPage>{
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Image.asset("assets/image/kebun.png", width: 50, height: 50,),
+                            child: Image.asset("assets/image/inventory.png", width: 50, height: 50,),
                           ),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('Tanggal Catat: $tglCatat',
+                                Text('[$kebun]'' - ' '$namaBrg',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 14,
+                                      fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
                                     )),
-                                Text('Tanggal Update: $tglUpdate',
-                                    style: TextStyle(
-                                      fontFamily: textNtr,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    )),
-                                Text('Nama: $namaBrg',
-                                    style: TextStyle(
-                                      fontFamily: textNtr,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal,
-                                      color: Colors.black,
-                                    )),
+                                
                                 Text('Kuantitas Barang: $jmlhBrgAwal',
                                     style: TextStyle(
                                       fontFamily: textNtr,
@@ -168,6 +156,12 @@ class InventoryPageState extends State<InventoryPage>{
                                                       await Inventory.deleteIvent(
                                                           inventoryId: inventId);
                                                       Navigator.pop(context);
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                              const SnackBar(
+                                                                  content: Text(
+                                                                      'Data berhasil di hapus!')));
                                                     },
                                                     child: const Text("Yes"))
                                               ],
