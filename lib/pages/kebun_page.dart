@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/kebun.dart';
+import 'package:final_project/forms/edit_kebun.dart';
 import 'package:final_project/forms/form_kebun.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -146,11 +147,12 @@ class KebunPageState extends State<KebunPage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
+                                
                                 IconButton(
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => const FormKebun(),
+                                        builder: (context) => EditKebun(currentAlamat: alamat, currentJenis: jenis, currentKomoditas: komoditas, currentLuas: luas, currentNama: nama, docId: kebunId),
                                       ),
                                     );
                                   },
