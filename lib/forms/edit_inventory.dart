@@ -1,5 +1,3 @@
-// ignore_for_file: deprecated_member_use, duplicate_ignore
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
@@ -7,20 +5,28 @@ import 'package:final_project/pages/inventory_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class FormInventory extends StatefulWidget {
-  const FormInventory({Key? key}) : super(key: key);
+class EditInventory extends StatefulWidget{
+  final String currentNama;
+  final String currentJmlhBrg;
+  final String currentBrgTerpakai;
+  final String currentSisa;
+  final String currentTglCatat;
+  final String currentTglUpdate;
+  final String docId;
 
+  const EditInventory({Key? key, required this.currentNama, required this.currentJmlhBrg, required this.currentBrgTerpakai, required this.currentSisa, required this.currentTglCatat, required this.currentTglUpdate, required this.docId}) : super(key: key);
+  
   @override
-  FormInventoryState createState() => FormInventoryState();
+  EditInventoryState createState() => EditInventoryState();
 }
 
-class FormInventoryState extends State<FormInventory> {
-  final TextEditingController _namaController = TextEditingController();
-  final TextEditingController _jmlhBrgController = TextEditingController();
-  final TextEditingController _brgTerpakaiController = TextEditingController();
-  final TextEditingController _sisaController = TextEditingController();
-  final TextEditingController _tglCatatController = TextEditingController();
-  final TextEditingController _tglUpdateController = TextEditingController();
+class EditInventoryState extends State<EditInventory>{
+  TextEditingController _namaController = TextEditingController();
+  TextEditingController _jmlhBrgController = TextEditingController();
+   TextEditingController _brgTerpakaiController = TextEditingController();
+   TextEditingController _sisaController = TextEditingController();
+   TextEditingController _tglCatatController = TextEditingController();
+   TextEditingController _tglUpdateController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var textNunitoSans = 'Nunito Sans';
   DateTime tglCatat = DateTime.now();
@@ -28,6 +34,10 @@ class FormInventoryState extends State<FormInventory> {
   var selectedKebun;
   String? setTglCatat;
   String? setTglUpdate;
+  String? nama;
+  String? jmlhBrg;
+  String? brgTerpakai;
+  String? sisa;
 
   Future<void> _selectTglCatat(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -61,8 +71,14 @@ class FormInventoryState extends State<FormInventory> {
 
   @override
   void initState() {
-    _tglCatatController.text = DateFormat.yMd().format(DateTime.now());
-    _tglUpdateController.text = DateFormat.yMd().format(DateTime.now());
+    // _tglCatatController.text = DateFormat.yMd().format(DateTime.now());
+    // _tglUpdateController.text = DateFormat.yMd().format(DateTime.now());
+    _namaController = TextEditingController(text: widget.currentNama);
+  _jmlhBrgController = TextEditingController(text: widget.currentJmlhBrg);
+   _brgTerpakaiController = TextEditingController(text: widget.currentBrgTerpakai);
+   _sisaController = TextEditingController(text: widget.currentSisa);
+   _tglCatatController = TextEditingController(text: widget.currentTglCatat);
+   _tglUpdateController = TextEditingController(text: widget.currentTglUpdate);
     super.initState();
   }
 
@@ -81,7 +97,7 @@ class FormInventoryState extends State<FormInventory> {
           },
         ),
         title: const Text(
-          "Tambah Data Inventory",
+          "Edit Data Inventory",
           style: TextStyle(
               color: Colors.black,
               fontFamily: 'NunitoSans',
@@ -175,6 +191,7 @@ class FormInventoryState extends State<FormInventory> {
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
+                    
                   ),
                 ),
               ),
@@ -220,6 +237,9 @@ class FormInventoryState extends State<FormInventory> {
                           }
                           return null;
                         },
+                        onSaved: (val){
+                          nama=val;
+                        },
                       ),
                     ),
                     Container(
@@ -239,6 +259,9 @@ class FormInventoryState extends State<FormInventory> {
                             return 'Please fill this section';
                           }
                           return null;
+                        },
+                        onSaved: (val){
+                          jmlhBrg = val;
                         },
                       ),
                     ),
@@ -260,6 +283,9 @@ class FormInventoryState extends State<FormInventory> {
                           }
                           return null;
                         },
+                        onSaved: (val){
+                          brgTerpakai=val;
+                        },
                       ),
                     ),
                     Container(
@@ -279,6 +305,9 @@ class FormInventoryState extends State<FormInventory> {
                             return 'Please fill this section';
                           }
                           return null;
+                        },
+                        onSaved: (val){
+                          sisa=val;
                         },
                       ),
                     ),
@@ -335,7 +364,8 @@ class FormInventoryState extends State<FormInventory> {
                           color: Colors.green,
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              await Inventory.addInventory(
+                              await Inventory.updateInventory(
+                                inventoryId: widget.docId,
                                 kebun: selectedKebun,
                                 tanggalCatat: tglCatat.toString(),
                                 tanggalUpdate: tglUpdate.toString(),

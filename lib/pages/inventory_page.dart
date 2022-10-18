@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/inventory.dart';
+import 'package:final_project/forms/edit_inventory.dart';
 import 'package:final_project/forms/form_inventory.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -132,7 +133,11 @@ class InventoryPageState extends State<InventoryPage>{
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                        builder: (context) => EditInventory(currentNama: namaBrg, currentJmlhBrg: jmlhBrgAwal, currentBrgTerpakai: brgTerpakai, currentSisa: sisa, currentTglCatat: tglCatat, currentTglUpdate: tglUpdate, docId: inventId,),
+                                      ),
+                                    );},
                                   icon: const Icon(Icons.edit),
                                   color: Colors.grey,
                                 ),
