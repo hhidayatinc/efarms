@@ -76,7 +76,8 @@ class KebunPageState extends State<KebunPage> {
                     String kebunId = snapshot.data!.docs[index].id;
                     String nama = kebunList.get('nama_kebun');
                     String alamat = kebunList.get('alamat_kebun');
-                    String luas = kebunList.get('luas_kebun');
+                    double luas = kebunList.get('luas_kebun');
+                    String satuan = kebunList.get('satuan');
                     String komoditas = kebunList.get('komoditas_tanaman');
                     String jenis = kebunList.get('jenis_kebun');
 
@@ -133,7 +134,7 @@ class KebunPageState extends State<KebunPage> {
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
-                                Text('Lokasi: $luas',
+                                Text('Lebar: $luas' ' $satuan',
                                     style: TextStyle(
                                       fontFamily: textNtr,
                                       fontSize: 16,
@@ -148,12 +149,18 @@ class KebunPageState extends State<KebunPage> {
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
-                                
                                 IconButton(
                                   onPressed: () {
                                     Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => EditKebun(currentAlamat: alamat, currentJenis: jenis, currentKomoditas: komoditas, currentLuas: luas, currentNama: nama, docId: kebunId),
+                                        builder: (context) => EditKebun(
+                                          currentsatuan: satuan,
+                                            currentAlamat: alamat,
+                                            currentJenis: jenis,
+                                            currentKomoditas: komoditas,
+                                            currentLuas: luas,
+                                            currentNama: nama,
+                                            docId: kebunId),
                                       ),
                                     );
                                   },

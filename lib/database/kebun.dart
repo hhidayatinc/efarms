@@ -11,7 +11,8 @@ class Kebun{
   static Future<void>? addNewKebun({
     String? nama, 
     String? alamat,
-    String? luas,
+    double? luas,
+    String? satuan,
     String? komoditas,
     String? jenis
   }) async{
@@ -21,6 +22,7 @@ class Kebun{
       "nama_kebun" : nama,
       "alamat_kebun" : alamat,
       "luas_kebun" : luas,
+      "satuan" : satuan,
       "komoditas_tanaman" : komoditas,
       "jenis_kebun" : jenis
     };
@@ -31,7 +33,8 @@ class Kebun{
   static Future<void>? updateKebun({
     String? nama, 
     String? alamat,
-    String? luas,
+    double? luas,
+    String? satuan,
     String? komoditas,
     String? jenis,
     String? kebunId
@@ -41,6 +44,7 @@ class Kebun{
       "nama_kebun" : nama,
       "alamat_kebun" : alamat,
       "luas_kebun" : luas,
+      "satuan" : satuan,
       "komoditas_tanaman" : komoditas,
       "jenis_kebun" : jenis
     };

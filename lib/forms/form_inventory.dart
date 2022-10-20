@@ -5,7 +5,6 @@ import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/pages/inventory_page.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class FormInventory extends StatefulWidget {
   const FormInventory({Key? key}) : super(key: key);
@@ -18,53 +17,10 @@ class FormInventoryState extends State<FormInventory> {
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _jmlhBrgController = TextEditingController();
   final TextEditingController _brgTerpakaiController = TextEditingController();
-  final TextEditingController _sisaController = TextEditingController();
-  final TextEditingController _tglCatatController = TextEditingController();
-  final TextEditingController _tglUpdateController = TextEditingController();
+  final TextEditingController _satuanController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var textNunitoSans = 'Nunito Sans';
-  DateTime tglCatat = DateTime.now();
-  DateTime tglUpdate = DateTime.now();
   var selectedKebun;
-  String? setTglCatat;
-  String? setTglUpdate;
-
-  Future<void> _selectTglCatat(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: tglCatat,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2101));
-    if (picked != null) {
-      setState(() {
-        tglCatat = picked;
-        _tglCatatController.text = DateFormat.yMd().format(tglCatat);
-      });
-    }
-  }
-
-  Future<void> _selectTglUpdate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-        context: context,
-        initialDate: tglUpdate,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(2015),
-        lastDate: DateTime(2101));
-    if (picked != null) {
-      setState(() {
-        tglUpdate = picked;
-        _tglUpdateController.text = DateFormat.yMd().format(tglUpdate);
-      });
-    }
-  }
-
-  @override
-  void initState() {
-    _tglCatatController.text = DateFormat.yMd().format(DateTime.now());
-    _tglUpdateController.text = DateFormat.yMd().format(DateTime.now());
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -154,54 +110,7 @@ class FormInventoryState extends State<FormInventory> {
                   ],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  _selectTglCatat(context);
-                },
-                child: Container(
-                  width: 100,
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    enabled: false,
-                    keyboardType: TextInputType.text,
-                    controller: _tglCatatController,
-                    onSaved: (String? val) {
-                      setTglCatat = val;
-                    },
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.date_range),
-                      hintText: 'Tanggal Catat',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  _selectTglUpdate(context);
-                },
-                child: Container(
-                  width: 100,
-                  padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    enabled: false,
-                    keyboardType: TextInputType.text,
-                    controller: _tglUpdateController,
-                    onSaved: (String? val) {
-                      setTglUpdate = val;
-                    },
-                    decoration: InputDecoration(
-                      icon: const Icon(Icons.date_range),
-                      hintText: 'Tanggal Update',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                  ),
-                ),
-              ),
+             
                     Container(
                       width: 100,
                       padding: const EdgeInsets.all(10),
@@ -227,6 +136,26 @@ class FormInventoryState extends State<FormInventory> {
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
                         keyboardType: TextInputType.text,
+                        controller: _satuanController,
+                        decoration: InputDecoration(
+                          hintText: 'Satuan Barang',
+                          hintStyle: const TextStyle(color: Colors.grey),
+                          border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(10.0)),
+                        ),
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please fill this section';
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    Container(
+                      width: 100,
+                      padding: const EdgeInsets.all(10),
+                      child: TextFormField(
+                        keyboardType: TextInputType.number,
                         controller: _jmlhBrgController,
                         decoration: InputDecoration(
                           hintText: 'Jumlah Barang awal',
@@ -246,30 +175,10 @@ class FormInventoryState extends State<FormInventory> {
                       width: 100,
                       padding: const EdgeInsets.all(10),
                       child: TextFormField(
-                        keyboardType: TextInputType.text,
+                        keyboardType: TextInputType.number,
                         controller: _brgTerpakaiController,
                         decoration: InputDecoration(
                           hintText: 'Jumlah Barang Terpakai',
-                          hintStyle: const TextStyle(color: Colors.grey),
-                          border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(10.0)),
-                        ),
-                        validator: (value) {
-                          if (value == null) {
-                            return 'Please fill this section';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
-                    Container(
-                      width: 100,
-                      padding: const EdgeInsets.all(10),
-                      child: TextFormField(
-                        keyboardType: TextInputType.text,
-                        controller: _sisaController,
-                        decoration: InputDecoration(
-                          hintText: 'Jumlah Barang Saat ini',
                           hintStyle: const TextStyle(color: Colors.grey),
                           border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10.0)),
@@ -337,12 +246,11 @@ class FormInventoryState extends State<FormInventory> {
                             if (_formKey.currentState!.validate()) {
                               await Inventory.addInventory(
                                 kebun: selectedKebun,
-                                tanggalCatat: tglCatat.toString(),
-                                tanggalUpdate: tglUpdate.toString(),
                                 namaBarang: _namaController.text,
-                                jumlahBrgAwal: _jmlhBrgController.text,
-                                brgTerpakai: _brgTerpakaiController.text,
-                                sisa: _sisaController.text,
+                                satuan: _satuanController.text,
+                                jumlahBrgAwal: double.parse(_jmlhBrgController.text),
+                                brgTerpakai: double.parse(_brgTerpakaiController.text),
+                                sisa: double.parse(_jmlhBrgController.text) - double.parse(_brgTerpakaiController.text),
                               );
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(

@@ -2,6 +2,7 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/qc.dart';
+import 'package:final_project/forms/edit_qc.dart';
 import 'package:final_project/forms/form_qc.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -74,7 +75,12 @@ class QualityControlState extends State<QualityControl> {
                     String qcId = snapshot.data!.docs[index].id;
                     String tanggal = qcList['tanggal'];
                     String kebun = qcList['kebun'];
+                    int listrik = qcList['listrik'];
+                    String ppmSebelum = qcList['ppmSebelum'];
+                    String ppmTambah = qcList['ppmTambah'];
                     String ppmSesudah = qcList['ppmSesudah'];
+                    String phSebelum = qcList['phSebelum'];
+                    String phTambah = qcList['phTambah'];
                     String phSesudah = qcList['phSesudah'];
                     return Container(
                       height: 150.0,
@@ -144,7 +150,20 @@ class QualityControlState extends State<QualityControl> {
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    Navigator.of(context).push(
+                                      MaterialPageRoute(
+                                          builder: (context) => EditQc(
+                                              currentListrik: listrik,
+                                              currentphSebelum: phSebelum,
+                                              currentphSesudah: phSesudah,
+                                              currentphTambah: phTambah,
+                                              currentppmSebelum: ppmSebelum,
+                                              currentppmTambah: ppmTambah,
+                                              currentppmSesudah: ppmSesudah,
+                                              currentTgl: tanggal)),
+                                    );
+                                  },
                                   icon: const Icon(Icons.edit),
                                   color: Colors.grey,
                                 ),

@@ -3,7 +3,6 @@ import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/register_page.dart';
-import 'package:final_project/service/auth.dart';
 import 'package:final_project/service/auth_email.dart';
 import 'package:final_project/service/auth_google.dart';
 import 'package:firebase_auth/firebase_auth.dart';

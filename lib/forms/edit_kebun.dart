@@ -1,12 +1,14 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/pages/kebun_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class EditKebun extends StatefulWidget {
   final String currentNama;
-  final String currentLuas;
+  final double currentLuas;
   final String currentAlamat;
+  final String currentsatuan;
   final String currentJenis;
   final String currentKomoditas;
   final String docId;
@@ -17,6 +19,7 @@ class EditKebun extends StatefulWidget {
       required this.currentAlamat,
       required this.currentLuas,
       required this.currentKomoditas,
+      required this.currentsatuan,
       required this.currentJenis,
       required this.docId})
       : super(key: key);
@@ -31,22 +34,18 @@ class EditKebunState extends State<EditKebun> {
   TextEditingController _luasController = TextEditingController();
   TextEditingController _jenisController = TextEditingController();
   TextEditingController _komoditasController = TextEditingController();
+  TextEditingController _satuanController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
   var textNunitoSans = 'Nunito Sans';
-
-  String? nama;
-  String? alamat;
-  String? luas;
-  String? komoditas;
-  String? jenis;
 
   @override
   void initState() {
     _namaController = TextEditingController(text: widget.currentNama);
     _alamatController = TextEditingController(text: widget.currentAlamat);
-    _luasController = TextEditingController(text: widget.currentLuas);
+    _luasController = TextEditingController(text: widget.currentLuas.toString());
     _komoditasController = TextEditingController(text: widget.currentKomoditas);
     _jenisController = TextEditingController(text: widget.currentJenis);
+    _satuanController = TextEditingController(text: widget.currentsatuan);
     super.initState();
   }
 
@@ -101,9 +100,6 @@ class EditKebunState extends State<EditKebun> {
                       }
                       return null;
                     },
-                    onSaved: (val) {
-                      nama = val;
-                    },
                   ),
                 ),
                 Padding(
@@ -123,15 +119,12 @@ class EditKebunState extends State<EditKebun> {
                       }
                       return null;
                     },
-                    onSaved: (val) {
-                      alamat = val;
-                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     controller: _luasController,
                     decoration: InputDecoration(
                       hintText: 'Luas Kebun',
@@ -145,8 +138,24 @@ class EditKebunState extends State<EditKebun> {
                       }
                       return null;
                     },
-                    onSaved: (val) {
-                      luas = val;
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: _satuanController,
+                    decoration: InputDecoration(
+                      hintText: 'Satuan Lebar',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                    ),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please fill this section';
+                      }
+                      return null;
                     },
                   ),
                 ),
@@ -167,9 +176,6 @@ class EditKebunState extends State<EditKebun> {
                       }
                       return null;
                     },
-                    onSaved: (val) {
-                      jenis = val;
-                    },
                   ),
                 ),
                 Padding(
@@ -188,9 +194,6 @@ class EditKebunState extends State<EditKebun> {
                         return 'Please fill this section';
                       }
                       return null;
-                    },
-                    onSaved: (val) {
-                      komoditas = val;
                     },
                   ),
                 ),
@@ -214,7 +217,6 @@ class EditKebunState extends State<EditKebun> {
                                       content: const Text(
                                           'Apakah anda yakin ingin membuang data ini?'),
                                       actions: <Widget>[
-                                        // ignore: deprecated_member_use
                                         FlatButton(
                                             onPressed: () {
                                               Navigator.push(
@@ -250,9 +252,10 @@ class EditKebunState extends State<EditKebun> {
                                 kebunId: widget.docId,
                                 nama: _namaController.text,
                                 alamat: _alamatController.text,
+                                satuan: _satuanController.text,
                                 jenis: _jenisController.text,
                                 komoditas: _komoditasController.text,
-                                luas: _luasController.text);
+                                luas: double.parse(_luasController.text));
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text(

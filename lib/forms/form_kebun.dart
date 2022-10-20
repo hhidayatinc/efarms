@@ -16,6 +16,7 @@ class FormKebunState extends State<FormKebun> {
   final TextEditingController _namaController = TextEditingController();
   final TextEditingController _alamatController = TextEditingController();
   final TextEditingController _luasController = TextEditingController();
+  final TextEditingController _satuanController = TextEditingController();
   final TextEditingController _jenisController = TextEditingController();
   final TextEditingController _komoditasController = TextEditingController();
   final _formKey = GlobalKey<FormState>();
@@ -90,15 +91,12 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
-                    onChanged: (value) {
-                      
-                    },
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
                   child: TextFormField(
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     controller: _luasController,
                     decoration: InputDecoration(
                       hintText: 'Luas Kebun',
@@ -112,7 +110,25 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
-                    onChanged: (value) {},
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(10),
+                  child: TextFormField(
+                    keyboardType: TextInputType.text,
+                    controller: _satuanController,
+                    decoration: InputDecoration(
+                      hintText: 'Satuan Lebar',
+                      hintStyle: const TextStyle(color: Colors.grey),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10.0)),
+                    ),
+                    validator: (value) {
+                      if (value == null) {
+                        return 'Please fill this section';
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 Padding(
@@ -132,7 +148,6 @@ class FormKebunState extends State<FormKebun> {
                       }
                       return null;
                     },
-                    onChanged: (value) {},
                   ),
                 ),
                 Padding(
@@ -212,26 +227,14 @@ class FormKebunState extends State<FormKebun> {
                                 alamat: _alamatController.text,
                                 jenis: _jenisController.text,
                                 komoditas: _komoditasController.text,
-                                luas: _luasController.text);
+                                satuan: _satuanController.text,
+                                luas: double.parse(_luasController.text));
                             ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(
                                     content: Text(
                                         'Data kebun baru berhasil ditambahkan!')));
                                         Navigator.of(context).pop();
-                          } else{
-                            await Kebun.updateKebun(
-                              nama: _namaController.text,
-                                alamat: _alamatController.text,
-                                jenis: _jenisController.text,
-                                komoditas: _komoditasController.text,
-                                luas: _luasController.text
-                            );
-                            ScaffoldMessenger.of(context).showSnackBar(
-                                const SnackBar(
-                                    content: Text(
-                                        'Data kebun berhasil diperbarui!')));
-                                        Navigator.of(context).pop();
-                          }
+                          } 
                         },
                         child: const Text(
                           'Simpan',

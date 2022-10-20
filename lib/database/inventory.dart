@@ -10,20 +10,18 @@ class Inventory {
   static String? userUid;
   static Future<void>? addInventory({
     String? kebun,
-    String? tanggalCatat,
-    String? tanggalUpdate,
     String? namaBarang,
-    String? jumlahBrgAwal,
-    String? brgTerpakai,
-    String? sisa,
+    String? satuan,
+    double? jumlahBrgAwal,
+    double? brgTerpakai,
+    double? sisa,
   }) async {
     DocumentReference df = _mainCollection.doc(userUid).collection('inventory').doc();
 
     Map<String, dynamic> data = <String, dynamic>{
       "kebun" : kebun,
-      "tanggal_catat" : tanggalCatat,
-      "tanggal_update" : tanggalUpdate,
       "nama_barang" : namaBarang,
+      "satuan" : satuan,
       "jumlah_barang_awal" : jumlahBrgAwal,
       "jumlah_barang_terpakai" : brgTerpakai,
       "jumlah_barang_saat_ini" : sisa
@@ -34,19 +32,17 @@ class Inventory {
   static Future<void>? updateInventory({
     String? inventoryId,
     String? kebun,
-    String? tanggalCatat,
-    String? tanggalUpdate,
     String? namaBarang,
-    String? jumlahBrgAwal,
-    String? brgTerpakai,
-    String? sisa,
+    String? satuan,
+    double? jumlahBrgAwal,
+    double? brgTerpakai,
+    double? sisa,
   }) async{
     DocumentReference df = _mainCollection.doc(userUid).collection('inventory').doc(inventoryId);
      Map<String, dynamic> data = <String, dynamic>{
       "kebun" : kebun,
-      "tanggal_catat" : tanggalCatat,
-      "tanggal_update" : tanggalUpdate,
       "nama_barang" : namaBarang,
+      "satuan" : satuan,
       "jumlah_barang_awal" : jumlahBrgAwal,
       "jumlah_barang_terpakai" : brgTerpakai,
       "jumlah_barang_saat_ini" : sisa

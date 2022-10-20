@@ -7,6 +7,7 @@ import 'package:final_project/pages/artikel_page.dart';
 import 'package:final_project/pages/inventory_page.dart';
 import 'package:final_project/pages/kebun_page.dart';
 import 'package:final_project/pages/qc_page.dart';
+import 'package:final_project/service/auth_email.dart';
 import 'package:final_project/service/auth_google.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -87,7 +88,7 @@ class HomePageState extends State<HomePage> {
                                             child: const Text("Tidak")),
                                         FlatButton(
                                             onPressed: () {
-                                              Authentication.signOutGoogle();
+                                              AuthenticationHelper().signOut();
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                       content: Text(

@@ -425,7 +425,7 @@ class FormQcState extends State<FormQc> {
                             await Qc.addQc(
                                 tanggal: selectedDate.toString(),
                                 kebun: selectedKebun,
-                                listrik: _listrikController.text,
+                                listrik: int.parse(_listrikController.text),
                                 ppmSebelum: _ppmSebelumController.text,
                                 ppmTambah: _ppmTambahController.text,
                                 ppmSesudah: _ppmSesudahController.text,

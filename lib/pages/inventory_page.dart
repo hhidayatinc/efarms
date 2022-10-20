@@ -7,25 +7,39 @@ import 'package:final_project/forms/form_inventory.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
-class InventoryPage  extends StatefulWidget{
+class InventoryPage extends StatefulWidget {
   const InventoryPage({Key? key}) : super(key: key);
   @override
- InventoryPageState createState() =>InventoryPageState();
+  InventoryPageState createState() => InventoryPageState();
 }
 
-class InventoryPageState extends State<InventoryPage>{
- var textNunitoSans = 'NunitoSans';
- var textNtr = 'NTR';
+class InventoryPageState extends State<InventoryPage> {
+  var textNunitoSans = 'NunitoSans';
+  var textNtr = 'NTR';
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
+    return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.black,), onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage())); },
+          icon: const Icon(
+            Icons.arrow_back,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HomePage()));
+          },
         ),
         centerTitle: true,
-        title: Text('Data Inventori', style: TextStyle(fontSize: 20, fontFamily: textNunitoSans, fontWeight: FontWeight.w600, color: Colors.black),),
+        title: Text(
+          'Data Inventori',
+          style: TextStyle(
+              fontSize: 20,
+              fontFamily: textNunitoSans,
+              fontWeight: FontWeight.w600,
+              color: Colors.black),
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
@@ -44,12 +58,12 @@ class InventoryPageState extends State<InventoryPage>{
       ),
       body: Container(
         decoration: const BoxDecoration(
-        image: DecorationImage(
-          image: AssetImage('assets/image/wallpaper3.png'),
-          fit: BoxFit.cover,
+          image: DecorationImage(
+            image: AssetImage('assets/image/wallpaper3.png'),
+            fit: BoxFit.cover,
+          ),
         ),
-      ),
-      child: StreamBuilder<QuerySnapshot>(
+        child: StreamBuilder<QuerySnapshot>(
           stream: Inventory.readInvent(),
           builder: (context, snapshot) {
             Widget widget =
@@ -60,12 +74,12 @@ class InventoryPageState extends State<InventoryPage>{
                     var inventList = snapshot.data!.docs[index];
                     String inventId = snapshot.data!.docs[index].id;
                     String kebun = inventList.get('kebun');
-                   String tglCatat = inventList.get('tanggal_catat');
-                   String tglUpdate = inventList.get('tanggal_update');
-                   String namaBrg = inventList.get('nama_barang');
-                   String jmlhBrgAwal = inventList.get('jumlah_barang_awal');
-                   String brgTerpakai = inventList.get('jumlah_barang_terpakai');
-                   String sisa = inventList.get('jumlah_barang_saat_ini');
+                    String namaBrg = inventList.get('nama_barang');
+                    double jmlhBrgAwal = inventList.get('jumlah_barang_awal');
+                    double brgTerpakai =
+                        inventList.get('jumlah_barang_terpakai');
+                    double sisa = inventList.get('jumlah_barang_saat_ini');
+                    String satuan = inventList.get('satuan');
 
                     return Container(
                       height: 150.0,
@@ -88,36 +102,40 @@ class InventoryPageState extends State<InventoryPage>{
                         children: <Widget>[
                           Padding(
                             padding: const EdgeInsets.all(10),
-                            child: Image.asset("assets/image/inventory.png", width: 50, height: 50,),
+                            child: Image.asset(
+                              "assets/image/inventory.png",
+                              width: 50,
+                              height: 50,
+                            ),
                           ),
                           Expanded(
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text('[$kebun]'' - ' '$namaBrg',
+                                Text('[$kebun]' ' - ' '$namaBrg',
                                     style: TextStyle(
                                       fontFamily: textNtr,
                                       fontSize: 18,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
                                     )),
-                                
-                                Text('Kuantitas Barang: $jmlhBrgAwal',
+                                Text(
+                                    'Kuantitas Barang: $jmlhBrgAwal' ' $satuan',
                                     style: TextStyle(
                                       fontFamily: textNtr,
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
-                                    Text('Barang Terpakai: $brgTerpakai',
+                                Text('Barang Terpakai: $brgTerpakai' ' $satuan',
                                     style: TextStyle(
                                       fontFamily: textNtr,
                                       fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
-                                    Text('Sisa Barang: $sisa',
+                                Text('Sisa Barang: $sisa' ' $satuan',
                                     style: TextStyle(
                                       fontFamily: textNtr,
                                       fontSize: 14,
@@ -133,11 +151,20 @@ class InventoryPageState extends State<InventoryPage>{
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [
                                 IconButton(
-                                  onPressed: () {Navigator.of(context).push(
+                                  onPressed: () {
+                                    Navigator.of(context).push(
                                       MaterialPageRoute(
-                                        builder: (context) => EditInventory(currentNama: namaBrg, currentJmlhBrg: jmlhBrgAwal, currentBrgTerpakai: brgTerpakai, currentSisa: sisa, currentTglCatat: tglCatat, currentTglUpdate: tglUpdate, docId: inventId,),
+                                        builder: (context) => EditInventory(
+                                          currentNama: namaBrg,
+                                          currentJmlhBrg: jmlhBrgAwal,
+                                          currentBrgTerpakai: brgTerpakai,
+                                          currentSisa: sisa,
+                                          docId: inventId,
+                                          currentSatuan: satuan,
+                                        ),
                                       ),
-                                    );},
+                                    );
+                                  },
                                   icon: const Icon(Icons.edit),
                                   color: Colors.grey,
                                 ),
@@ -158,8 +185,10 @@ class InventoryPageState extends State<InventoryPage>{
                                                 // ignore: deprecated_member_use
                                                 FlatButton(
                                                     onPressed: () async {
-                                                      await Inventory.deleteIvent(
-                                                          inventoryId: inventId);
+                                                      await Inventory
+                                                          .deleteIvent(
+                                                              inventoryId:
+                                                                  inventId);
                                                       Navigator.pop(context);
                                                       ScaffoldMessenger.of(
                                                               context)
@@ -190,7 +219,9 @@ class InventoryPageState extends State<InventoryPage>{
             if (!snapshot.hasData) {
               return widget;
             } else {
-              return const Center(child: CircularProgressIndicator(),);
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
             }
           },
         ),
@@ -198,4 +229,3 @@ class InventoryPageState extends State<InventoryPage>{
     );
   }
 }
-
