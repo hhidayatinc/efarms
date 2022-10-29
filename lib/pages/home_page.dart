@@ -2,8 +2,10 @@
 
 import 'dart:convert';
 import 'package:final_project/database/artikel.dart';
+import 'package:final_project/database/webinar.dart';
 import 'package:final_project/login_page.dart';
 import 'package:final_project/pages/artikel_page.dart';
+import 'package:final_project/pages/sekilas_ilmu.dart';
 import 'package:final_project/pages/inventory_page.dart';
 import 'package:final_project/pages/kebun_page.dart';
 import 'package:final_project/pages/qc_page.dart';
@@ -27,6 +29,12 @@ class HomePageState extends State<HomePage> {
     return list.map((e) => Artikel.fromJson(e)).toList();
   }
 
+  Future<List<Webinar>> readJsonWebinar() async {
+    final data = await rootBundle.loadString('assets/data/webinar.json');
+    final list = json.decode(data) as List<dynamic>;
+    return list.map((e) => Webinar.fromJson(e)).toList();
+  }
+
   @override
   Widget build(BuildContext context) {
     var textNunitoSans = 'Nunito Sans';
@@ -35,7 +43,7 @@ class HomePageState extends State<HomePage> {
             backgroundColor: Colors.green,
             onPressed: () async {
               Uri url =
-                  "https://wa.me/+6285235655323/?text=Hai Arta, saya mau konsultasi"
+                  "https://wa.me/+6287883858724/?text=Hai Arta, saya mau konsultasi"
                       as Uri;
               if (await canLaunchUrl(url)) {
                 await launchUrl(url);
@@ -54,6 +62,7 @@ class HomePageState extends State<HomePage> {
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             children: [
+              SizedBox(height: 10,),
               Column(
                 children: [
                   Row(
@@ -67,9 +76,6 @@ class HomePageState extends State<HomePage> {
                             letterSpacing: 2,
                             fontFamily: 'Righteous',
                             fontSize: 30),
-                      ),
-                      const SizedBox(
-                        width: 150,
                       ),
                       IconButton(
                           icon: const Icon(Icons.people),
@@ -88,7 +94,7 @@ class HomePageState extends State<HomePage> {
                                             child: const Text("Tidak")),
                                         FlatButton(
                                             onPressed: () {
-                                              AuthenticationHelper().signOut();
+                                              AuthService().signOut();
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                       content: Text(
@@ -327,96 +333,44 @@ class HomePageState extends State<HomePage> {
                           textAlign: TextAlign.left,
                         ),
                       ),
+                      const SizedBox(height: 5,),
                       SizedBox(
-                        child: Container(
                           height: 200,
-                          padding: const EdgeInsets.fromLTRB(5, 20, 5, 20),
-                          child: ListView(
-                            scrollDirection: Axis.horizontal,
-                            children: [
-                              InkWell(
-                                onTap: null,
-                                child: Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: boxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset('assets/image/video.png'),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Webinar',
-                                        style: TextStyle(
-                                            fontFamily: textNunitoSans,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(width: 20),
-                              InkWell(
-                                onTap: null,
-                                child: Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: boxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset('assets/image/video.png'),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Wbinar',
-                                        style: TextStyle(
-                                            fontFamily: textNunitoSans,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 20,
-                              ),
-                              InkWell(
-                                onTap: null,
-                                child: Container(
-                                  width: 150,
-                                  padding: const EdgeInsets.all(8),
-                                  decoration: boxDecoration(),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: [
-                                      Image.asset('assets/image/video.png'),
-                                      const SizedBox(
-                                        height: 5,
-                                      ),
-                                      Text(
-                                        'Webinar',
-                                        style: TextStyle(
-                                            fontFamily: textNunitoSans,
-                                            fontSize: 12),
-                                        textAlign: TextAlign.center,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 10,
-                              ),
-                            ],
+                          child: FutureBuilder(
+                            future: readJsonWebinar(),
+                            builder: (context, data) {
+                              if (data.hasError) {
+                                return Center(
+                                  child: Text("${data.error}"),
+                                );
+                              } else if (data.hasData) {
+                                var items = data.data as List<Webinar>;
+                                return ListView.builder(
+                                  itemCount: items.isEmpty ? 0 : items.length,
+                                  scrollDirection: Axis.horizontal,
+                                  itemBuilder: (context, index) {
+                                    return Container(padding: const EdgeInsets.all(8),
+                                        decoration: boxDecoration(),width: 180.0,child: InkWell(
+                                      onTap: (){
+                                        Navigator.push(context, MaterialPageRoute(builder: (context) => WebinarPage(webinar: items[index])));
+                                      },
+                                      child: 
+                                          Image.asset(items[index].gambar,
+                                              fit: BoxFit.contain,),
+                                          
+                                        
+                                    )
+                                    );
+                                  },
+                                );
+                              } else {
+                                return const Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                              }
+                            },
                           ),
                         ),
-                      )
                     ],
                   ),
                 ],

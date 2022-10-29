@@ -3,6 +3,7 @@ import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
 import 'package:final_project/login_page.dart';
 import 'package:final_project/pages/home_page.dart';
+import 'package:final_project/service/auth.dart';
 import 'package:final_project/service/auth_email.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -68,7 +69,7 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
-                        onSaved: (val){
+                        onSaved: (val) {
                           email = val;
                         },
                       ),
@@ -105,8 +106,8 @@ class RegisterPageState extends State<RegisterPage> {
                           }
                           return null;
                         },
-                        onSaved: (val){
-                          password=val;
+                        onSaved: (val) {
+                          password = val;
                         },
                       ),
                     ),
@@ -137,55 +138,106 @@ class RegisterPageState extends State<RegisterPage> {
           //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: Colors.green,
           onPressed: () async {
-            if (_formKey.currentState!.validate()) {
-                  _formKey.currentState!.save();
-
-                  AuthenticationHelper()
-                      .signUp(email: email!, password: password!)
-                      .then((result) {
-                    if (result == null) {
-                      Kebun.userUid = _auth.currentUser!.uid;
-                      Qc.userUid = _auth.currentUser!.uid;
-                      Inventory.userUid = _auth.currentUser!.uid;
-                      Navigator.pushReplacement(context,
-                          MaterialPageRoute(builder: (context) => const HomePage()));
-                    } else {
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(
-                          result,
-                          style: const TextStyle(fontSize: 16),
-                        ),
-                      ));
-                    }
-                  });
-                }
-            // if (_formKey.currentState!.validate()) {
-            //   SignInSignUpResult result = await AuthService.createUser(
-            //       email: _emailController.text, pass: _passController.text);
-            //   // ignore: unnecessary_null_comparison
-            //   if (result.user != null) {
-            //     Kebun.userUid = _auth.currentUser!.uid;
-            //     Qc.userUid = _auth.currentUser!.uid;
-            //     Inventory.userUid = _auth.currentUser!.uid;
-            //     Navigator.push(context,
-            //         MaterialPageRoute(builder: (context) => const HomePage()));
-            //   } else {
-            //     showDialog(
-            //         context: context,
-            //         builder: (context) => AlertDialog(
-            //                 title: const Text("Error"),
-            //                 content: Text(result.message.toString()),
-            //                 actions: <Widget>[
-            //                   // ignore: deprecated_member_use
-            //                   FlatButton(
-            //                       onPressed: () {
-            //                         Navigator.pop(context);
-            //                       },
-            //                       child: const Text("OK"))
-            //                 ]));
-            //   }
-            // }
+            SignInSignUpResult result = await AuthService.createUser(
+                email: _emailController.text, pass: _passController.text);
+            // ignore: unnecessary_null_comparison
+            if (result.user != null) {
+              Kebun.userUid = _auth.currentUser!.uid;
+              Qc.userUid = _auth.currentUser!.uid;
+              Inventory.userUid = _auth.currentUser!.uid;
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const HomePage()));
+            } else {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                          title: const Text("Error"),
+                          content: Text(result.message.toString()),
+                          actions: <Widget>[
+                            // ignore: deprecated_member_use
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("OK"))
+                          ]));
+            }
           },
+          // onPressed: () async {
+          //   if (_formKey.currentState!.validate()) {
+          //      SignInSignUpResult result = await AuthService.createUser(
+          //         email: _emailController.text, pass: _passController.text);
+          //     // ignore: unnecessary_null_comparison
+          //     if (result.user != null) {
+          //       Kebun.userUid = _auth.currentUser!.uid;
+          //       Qc.userUid = _auth.currentUser!.uid;
+          //       Inventory.userUid = _auth.currentUser!.uid;
+          //       Navigator.push(context,
+          //           MaterialPageRoute(builder: (context) => const HomePage()));
+          //     } else {
+          //       showDialog(
+          //           context: context,
+          //           builder: (context) => AlertDialog(
+          //                   title: const Text("Error"),
+          //                   content: Text(result.message.toString()),
+          //                   actions: <Widget>[
+          //                     // ignore: deprecated_member_use
+          //                     FlatButton(
+          //                         onPressed: () {
+          //                           Navigator.pop(context);
+          //                         },
+          //                         child: const Text("OK"))
+          //                   ]));
+          //     }
+          //   }
+          //         // _formKey.currentState!.save();
+
+          //         // AuthenticationHelper()
+          //         //     .signUp(email: email!, password: password!)
+          //         //     .then((result) {
+          //         //   if (result == null) {
+          //         //     Kebun.userUid = _auth.currentUser!.uid;
+          //         //     Qc.userUid = _auth.currentUser!.uid;
+          //         //     Inventory.userUid = _auth.currentUser!.uid;
+          //         //     Navigator.pushReplacement(context,
+          //         //         MaterialPageRoute(builder: (context) => const HomePage()));
+          //         //   } else {
+          //         //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          //         //       content: Text(
+          //         //         result,
+          //         //         style: const TextStyle(fontSize: 16),
+          //         //       ),
+          //         //     ));
+          //         //   }
+          //         // });
+          //       },
+          // if (_formKey.currentState!.validate()) {
+          //   SignInSignUpResult result = await AuthService.createUser(
+          //       email: _emailController.text, pass: _passController.text);
+          //   // ignore: unnecessary_null_comparison
+          //   if (result.user != null) {
+          //     Kebun.userUid = _auth.currentUser!.uid;
+          //     Qc.userUid = _auth.currentUser!.uid;
+          //     Inventory.userUid = _auth.currentUser!.uid;
+          //     Navigator.push(context,
+          //         MaterialPageRoute(builder: (context) => const HomePage()));
+          //   } else {
+          //     showDialog(
+          //         context: context,
+          //         builder: (context) => AlertDialog(
+          //                 title: const Text("Error"),
+          //                 content: Text(result.message.toString()),
+          //                 actions: <Widget>[
+          //                   // ignore: deprecated_member_use
+          //                   FlatButton(
+          //                       onPressed: () {
+          //                         Navigator.pop(context);
+          //                       },
+          //                       child: const Text("OK"))
+          //                 ]));
+          //   }
+          // }
+
           child: const Text(
             "Sign Up",
             style: TextStyle(

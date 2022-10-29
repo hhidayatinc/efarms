@@ -81,7 +81,9 @@ flutter:
     - assets/image/video.png
     - assets/image/wallpaper3.png
     - assets/data/artikel.json
+    - assets/data/webinar.json
     - assets/image/artikel1.jpg
+    - assets/image/w1.png
     - assets/image/artikel2.jpg
     - assets/image/artikel3.jpg
     - assets/image/artikel4.jpg
