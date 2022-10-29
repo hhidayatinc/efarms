@@ -1,11 +1,10 @@
 import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
+import 'package:final_project/database/user.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/register_page.dart';
-import 'package:final_project/service/auth.dart';
-import 'package:final_project/service/auth_email.dart';
-import 'package:final_project/service/auth_google.dart';
+import 'package:final_project/service/auth_helper.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +18,8 @@ class LoginPage extends StatefulWidget {
 class LoginPageState extends State<LoginPage> {
   bool _isHidePass = true;
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _passController = TextEditingController();
+  TextEditingController _emailController = TextEditingController();
+  TextEditingController _passController = TextEditingController();
   String? email;
   String? password;
   final _formKey = GlobalKey<FormState>();
@@ -28,6 +27,14 @@ class LoginPageState extends State<LoginPage> {
     setState(() {
       _isHidePass = !_isHidePass;
     });
+  }
+
+late UserHelper uh;
+  @override
+  void initState() {
+    super.initState();
+    _emailController = TextEditingController(text: "");
+    _passController = TextEditingController(text: "");
   }
 
   @override
@@ -148,86 +155,60 @@ class LoginPageState extends State<LoginPage> {
           //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: Colors.green,
           onPressed: () async {
-            SignInSignUpResult? result = await AuthService.signInWithEmail(
-                email: _emailController.text, pass: _passController.text);
-            // ignore: unnecessary_null_comparison
-            if (result.user != null) {
-              Kebun.userUid = _auth.currentUser!.uid;
-              Qc.userUid = _auth.currentUser!.uid;
-              Inventory.userUid = _auth.currentUser!.uid;
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const HomePage()));
-            } else {
-              showDialog(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                          title: const Text("Error"),
-                          content: Text(result.message.toString()),
-                          actions: <Widget>[
-                            // ignore: deprecated_member_use
-                            FlatButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                child: const Text("OK"))
-                          ]));
+            if (_formKey.currentState!.validate()) {
+              try {
+                final user = await AuthHelper.signInWithEmail(
+                    email: _emailController.text,
+                    password: _passController.text);
+                if (user != null) {
+                  Kebun.userUid = _auth.currentUser!.uid;
+                  Qc.userUid = _auth.currentUser!.uid;
+                  Inventory.userUid = _auth.currentUser!.uid;
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
+                }
+              } catch (e) {
+                showDialog(
+                    context: context,
+                    builder: (context) => AlertDialog(
+                            title: const Text("Error"),
+                            content: Text(e.toString()),
+                            actions: <Widget>[
+                              // ignore: deprecated_member_use
+                              FlatButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  child: const Text("OK"))
+                            ]));
+              }
+              // SignInSignUpResult? result = await AuthService.signInWithEmail(
+              //     email: _emailController.text, pass: _passController.text);
+              // // ignore: unnecessary_null_comparison
+              // if (result.user != null) {
+              //   Kebun.userUid = _auth.currentUser!.uid;
+              //   Qc.userUid = _auth.currentUser!.uid;
+              //   Inventory.userUid = _auth.currentUser!.uid;
+              //   Navigator.push(context,
+              //       MaterialPageRoute(builder: (context) => const HomePage()));
+              // } else {
+              //   showDialog(
+              //       context: context,
+              //       builder: (context) => AlertDialog(
+              //               title: const Text("Error"),
+              //               content: Text(result.message.toString()),
+              //               actions: <Widget>[
+              //                 // ignore: deprecated_member_use
+              //                 FlatButton(
+              //                     onPressed: () {
+              //                       Navigator.pop(context);
+              //                     },
+              //                     child: const Text("OK"))
+              //               ]));
+              // }
             }
           },
-          // onPressed: () async {
-          //   // if (_formKey.currentState!.validate()) {
-          //   //       _formKey.currentState!.save();
 
-          //   //       AuthenticationHelper()
-          //   //           .signIn(email: email!, password: password!)
-          //   //           .then((result) {
-          //   //         if (result == null) {
-          //   //           Kebun.userUid = _auth.currentUser!.uid;
-          //   //           Qc.userUid = _auth.currentUser!.uid;
-          //   //           Inventory.userUid = _auth.currentUser!.uid;
-          //   //           Navigator.pushReplacement(context,
-          //   //               MaterialPageRoute(builder: (context) => const HomePage()));
-          //   //         } else {
-          //   //           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          //   //             content: Text(
-          //   //               result,
-          //   //               style: const TextStyle(fontSize: 16),
-          //   //             ),
-          //   //           ));
-          //   //         }
-          //   //       });
-          //   //     }
-          //   if(_formKey.currentState!.validate()){
-          //     SignInSignUpResult? result = await AuthService.signInWithEmail(
-          //       email: _emailController.text, pass: _passController.text);
-          //   // ignore: unnecessary_null_comparison
-          //   if (result.user != null) {
-          //     Kebun.userUid = _auth.currentUser!.uid;
-          //     Qc.userUid = _auth.currentUser!.uid;
-          //     Inventory.userUid = _auth.currentUser!.uid;
-          //     ScaffoldMessenger.of(context).showSnackBar(
-          //                       const SnackBar(
-          //                           content: Text(
-          //                               'Berhasil masuk!')));
-          //     Navigator.push(context,
-          //         MaterialPageRoute(builder: (context) => const HomePage()));
-          //   // ignore: unnecessary_null_comparison
-          //   } else if (result.user == null ){
-          //     showDialog(
-          //         context: context,
-          //         builder: (context) => AlertDialog(
-          //                 title: const Text("Error"),
-          //                 content: Text(result.message.toString()),
-          //                 actions: <Widget>[
-          //                   // ignore: deprecated_member_use
-          //                   FlatButton(
-          //                       onPressed: () {
-          //                         Navigator.pop(context);
-          //                       },
-          //                       child: const Text("OK"))
-          //                 ]));
-          //   }
-          //   }
-          // },
           child: const Text(
             "Sign in",
             style: TextStyle(
@@ -248,19 +229,34 @@ class LoginPageState extends State<LoginPage> {
           //padding: EdgeInsets.symmetric(vertical: 20, horizontal: 40),
           color: Colors.green,
           onPressed: () async {
-            
-            User? user =
-                await Authentication.signInWithGoogle(context: context);
-            if (user != null) {
-              // ScaffoldMessenger.of(context).showSnackBar(
-              //     const SnackBar(content: Text('Berhasil masuk!')));
-              Kebun.userUid = _auth.currentUser!.uid;
-            Qc.userUid = _auth.currentUser!.uid;
-            Inventory.userUid = _auth.currentUser!.uid;
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) {
-                return const HomePage();
-              }));
+            try {
+              await AuthHelper.signInWithGoogle();
+            } catch (e) {
+              showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                          title: const Text("Error"),
+                          content: Text(e.toString()),
+                          actions: <Widget>[
+                            // ignore: deprecated_member_use
+                            FlatButton(
+                                onPressed: () {
+                                  Navigator.pop(context);
+                                },
+                                child: const Text("OK"))
+                          ]));
             }
+            // signInWithGoogle().then((result) {
+            //   if (result != null) {
+            //     Kebun.userUid = _auth.currentUser!.uid;
+            //     Qc.userUid = _auth.currentUser!.uid;
+            //     Inventory.userUid = _auth.currentUser!.uid;
+            //     Navigator.of(context)
+            //         .push(MaterialPageRoute(builder: (context) {
+            //       return const HomePage();
+            //     }));
+            //   }
+            // });
           },
           child: const Text(
             "Sign in With Google",

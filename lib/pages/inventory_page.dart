@@ -176,13 +176,13 @@ class InventoryPageState extends State<InventoryPage> {
                                               title: const Text('Konfirmasi'),
                                               content: const Text(
                                                   "Yakin menghapus data ini?"),
+                                              // ignore: duplicate_ignore
                                               actions: [
                                                 FlatButton(
                                                     onPressed: () {
                                                       Navigator.pop(context);
                                                     },
                                                     child: const Text("Batal")),
-                                                // ignore: deprecated_member_use
                                                 FlatButton(
                                                     onPressed: () async {
                                                       await Inventory

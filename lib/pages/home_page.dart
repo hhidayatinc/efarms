@@ -9,8 +9,7 @@ import 'package:final_project/pages/sekilas_ilmu.dart';
 import 'package:final_project/pages/inventory_page.dart';
 import 'package:final_project/pages/kebun_page.dart';
 import 'package:final_project/pages/qc_page.dart';
-import 'package:final_project/service/auth_email.dart';
-import 'package:final_project/service/auth_google.dart';
+import 'package:final_project/service/auth_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -62,7 +61,7 @@ class HomePageState extends State<HomePage> {
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             children: [
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Column(
                 children: [
                   Row(
@@ -94,7 +93,8 @@ class HomePageState extends State<HomePage> {
                                             child: const Text("Tidak")),
                                         FlatButton(
                                             onPressed: () {
-                                              AuthService().signOut();
+                                              AuthHelper.logOut();
+                                              //signOutGoogle();
                                               ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
                                                       content: Text(

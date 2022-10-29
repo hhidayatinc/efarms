@@ -57,7 +57,7 @@ class KebunPageState extends State<KebunPage> {
         ),
       ),
       body: Container(
-        padding: EdgeInsets.all(10),
+        padding: const EdgeInsets.all(10),
         decoration: const BoxDecoration(
           image: DecorationImage(
             image: AssetImage('assets/image/wallpaper3.png'),
