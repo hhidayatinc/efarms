@@ -1,6 +1,7 @@
 import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
+import 'package:final_project/database/user.dart';
 import 'package:final_project/login_page.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/service/auth_helper.dart';
@@ -142,6 +143,7 @@ class RegisterPageState extends State<RegisterPage> {
                 final user = await AuthHelper.signupWithEmail(
                     email: _emailController.text,
                     password: _passController.text);
+                    UserHelper.saveUser(user);
                 if (user != null) {
                   Kebun.userUid = _auth.currentUser!.uid;
                   Qc.userUid = _auth.currentUser!.uid;

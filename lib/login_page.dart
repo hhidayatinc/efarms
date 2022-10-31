@@ -2,6 +2,7 @@ import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
 import 'package:final_project/database/user.dart';
+import 'package:final_project/pages/admin_page.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/register_page.dart';
 import 'package:final_project/service/auth_helper.dart';
@@ -161,11 +162,16 @@ late UserHelper uh;
                     email: _emailController.text,
                     password: _passController.text);
                 if (user != null) {
-                  Kebun.userUid = _auth.currentUser!.uid;
+                  if(UserHelper.role == 'admin'){
+                     Navigator.push(context,
+                    MaterialPageRoute(builder: (_) =>  AdminHomePage()));
+                  } else{
+                      Kebun.userUid = _auth.currentUser!.uid;
                   Qc.userUid = _auth.currentUser!.uid;
                   Inventory.userUid = _auth.currentUser!.uid;
                  Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const HomePage()));
+                  }
                 }
               } catch (e) {
                 showDialog(
@@ -231,6 +237,14 @@ late UserHelper uh;
           onPressed: () async {
             try {
               await AuthHelper.signInWithGoogle();
+              UserHelper.saveUser(_auth.currentUser);
+              Kebun.userUid = _auth.currentUser!.uid;
+                Qc.userUid = _auth.currentUser!.uid;
+                Inventory.userUid = _auth.currentUser!.uid;
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return  AdminHomePage();
+                }));
             } catch (e) {
               showDialog(
                   context: context,

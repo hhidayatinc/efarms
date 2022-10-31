@@ -83,7 +83,7 @@ class KebunPageState extends State<KebunPage> {
 
                     return Container(
                       height: 150.0,
-                      margin: const EdgeInsets.all(8),
+                      //margin: const EdgeInsets.all(8),
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10),
@@ -116,28 +116,28 @@ class KebunPageState extends State<KebunPage> {
                                 Text('[$jenis]' ' $nama',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                       fontWeight: FontWeight.w600,
                                       color: Colors.black,
                                     )),
                                 Text('Lokasi: $alamat',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
                                 Text('Komoditas: $komoditas',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
                                 Text('Lebar: $luas' ' $satuan',
                                     style: TextStyle(
                                       fontFamily: textNtr,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.normal,
                                       color: Colors.black,
                                     )),
