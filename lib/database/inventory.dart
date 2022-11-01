@@ -54,6 +54,8 @@ class Inventory {
     CollectionReference inventoryCollection = _mainCollection.doc(userUid).collection('inventory');
     return inventoryCollection.snapshots();
   }
+
+ 
   static Future<void>? deleteIvent({
     String? inventoryId
   }) async{

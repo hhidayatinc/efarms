@@ -1,7 +1,9 @@
 // ignore_for_file: deprecated_member_use
 
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/artikel.dart';
+import 'package:final_project/database/berita.dart';
 import 'package:final_project/database/webinar.dart';
 import 'package:final_project/login_page.dart';
 import 'package:final_project/pages/artikel_page.dart';
@@ -319,6 +321,62 @@ class HomePageState extends State<HomePage> {
                               }
                             },
                           ),
+            //               child: StreamBuilder<QuerySnapshot>(stream: Berita.showberita(),builder: (context, snapshot){
+            //                 Widget widget =
+            //     const Center(child: Text('Anda belum memiliki data kebun'));
+            //     if(snapshot.hasData){
+            //       return ListView.builder(itemBuilder: (context, index){
+            //         var beritaList = snapshot.data!.docs[index];
+            //         //String beritaId = snapshot.data!.docs[index].id;
+            //         String judul = beritaList.get('judul_berita');
+            //         //String konten = beritaList.get('konten_berita');
+            //         String tanggal = beritaList.get('tanggal');
+            //         //String sumber = beritaList.get('sumber');
+            //         String gambar = beritaList.get('gambar');
+            //         return Container(
+            //           padding: const EdgeInsets.all(8),
+            //                             decoration: boxDecoration(),width: 180.0,child: InkWell(
+            //                           onTap: (){
+            //                             //Navigator.push(context, MaterialPageRoute(builder: (context) => ArtikelPage(artikel: items[index])));
+            //                           },
+            //           child: Column(
+            //                             mainAxisAlignment:
+            //                                 MainAxisAlignment.start,
+            //                             children: [
+            //                               Image.network(gambar,
+            //                                   fit: BoxFit.fitWidth,),
+            //                               const SizedBox(height: 5),
+            //                               Text(
+            //                                 tanggal,
+            //                                 style: TextStyle(
+            //                                     fontFamily: textNunitoSans,
+            //                                     fontSize: 12,
+            //                                     color: Colors.grey),
+            //                                 textAlign: TextAlign.left,
+            //                               ),
+            //                               Text(
+            //                                 judul,
+            //                                 style: TextStyle(
+            //                                     fontFamily: textNunitoSans,
+            //                                     fontWeight: FontWeight.w600,
+            //                                     fontSize: 12,
+            //                                     color: Colors.black),
+            //                                 textAlign: TextAlign.left,
+            //                               )
+            //                             ],
+            //                           ),
+
+
+            //         ));
+            //       }, itemCount: snapshot.data!.docs.length,);
+            //     } if (!snapshot.hasData) {
+            //   return widget;
+            // } else {
+            //   return const Center(
+            //     child: CircularProgressIndicator(),
+            //   );
+            // }
+            //               },)
                         ),
                       
                       const SizedBox(height: 10,),

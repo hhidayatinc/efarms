@@ -4,8 +4,7 @@ import 'package:package_info/package_info.dart';
 
 class UserHelper{
    static FirebaseFirestore _db = FirebaseFirestore.instance;
-   static String role = "user";
-
+   
   static saveUser(User? user) async {
     PackageInfo packageInfo = await PackageInfo.fromPlatform();
     int buildNumber = int.parse(packageInfo.buildNumber);
@@ -15,7 +14,7 @@ class UserHelper{
       "email": user.email,
       "last_login": user.metadata.lastSignInTime!.millisecondsSinceEpoch,
       "created_at": user.metadata.creationTime!.millisecondsSinceEpoch,
-      "role": role,
+      "role": "user",
       "build_number": buildNumber,
     };
     final userRef = _db.collection("users").doc(user.uid);

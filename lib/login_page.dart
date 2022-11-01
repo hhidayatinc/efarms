@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
@@ -40,7 +41,30 @@ late UserHelper uh;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if(snapshot.hasData && snapshot.data != null) {
+          UserHelper.saveUser(snapshot.data);
+          return StreamBuilder<DocumentSnapshot>(
+            stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data!.uid).snapshots() ,
+            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
+              if(snapshot.hasData && snapshot.data != null) {
+                final userDoc = snapshot.data;
+                if(userDoc!.get('role') == 'admin') {
+                  return AdminHomePage();
+                }else{
+                  return const HomePage();
+                }
+              }else{
+                return Material(
+                  child: Center(child: CircularProgressIndicator(),),
+                );
+              }
+            },
+          );
+        }
+        return Scaffold(
         body: Form(
             key: _formKey,
             child: Container(
@@ -144,6 +168,8 @@ late UserHelper uh;
                 ),
               ),
             )));
+      }
+    );
   }
 
   Widget _loginWithEmail() {
@@ -161,18 +187,15 @@ late UserHelper uh;
                 final user = await AuthHelper.signInWithEmail(
                     email: _emailController.text,
                     password: _passController.text);
-                if (user != null) {
-                  if(UserHelper.role == 'admin'){
-                     Navigator.push(context,
-                    MaterialPageRoute(builder: (_) =>  AdminHomePage()));
-                  } else{
-                      Kebun.userUid = _auth.currentUser!.uid;
-                  Qc.userUid = _auth.currentUser!.uid;
-                  Inventory.userUid = _auth.currentUser!.uid;
-                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const HomePage()));
-                  }
-                }
+                 if (user != null) {
+                  
+                  //      Kebun.userUid = _auth.currentUser!.uid;
+                  //  Qc.userUid = _auth.currentUser!.uid;
+                  //  Inventory.userUid = _auth.currentUser!.uid;
+                //  Navigator.push(context,
+                //     MaterialPageRoute(builder: (context) => const HomePage()));
+                  
+                 }
               } catch (e) {
                 showDialog(
                     context: context,
@@ -237,14 +260,14 @@ late UserHelper uh;
           onPressed: () async {
             try {
               await AuthHelper.signInWithGoogle();
-              UserHelper.saveUser(_auth.currentUser);
-              Kebun.userUid = _auth.currentUser!.uid;
-                Qc.userUid = _auth.currentUser!.uid;
-                Inventory.userUid = _auth.currentUser!.uid;
-                Navigator.of(context)
-                    .push(MaterialPageRoute(builder: (context) {
-                  return  AdminHomePage();
-                }));
+               UserHelper.saveUser(_auth.currentUser);
+              //  Kebun.userUid = _auth.currentUser!.uid;
+              //    Qc.userUid = _auth.currentUser!.uid;
+              //    Inventory.userUid = _auth.currentUser!.uid;
+              //   Navigator.of(context)
+              //       .push(MaterialPageRoute(builder: (context) {
+              //     return  AdminHomePage();
+              //   }));
             } catch (e) {
               showDialog(
                   context: context,

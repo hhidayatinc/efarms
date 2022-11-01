@@ -16,6 +16,7 @@ class InventoryPage extends StatefulWidget {
 class InventoryPageState extends State<InventoryPage> {
   var textNunitoSans = 'NunitoSans';
   var textNtr = 'NTR';
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -228,4 +229,27 @@ class InventoryPageState extends State<InventoryPage> {
       ),
     );
   }
+
+  // Widget _search(){
+  //   String? userUid;
+  //   String? namaBarang;
+  //  return StreamBuilder<QuerySnapshot>(stream:FirebaseFirestore.instance.collection('efarms').doc(userUid).collection('inventory').where('nama_barang', isEqualTo: namaBarang).snapshots(),
+  //  builder: (context, snapshot){
+  //   if(snapshot.connectionState == ConnectionState.waiting){
+  //     return Center(child: CircularProgressIndicator(),);
+  //   }
+  //   else if(snapshot.connectionState == ConnectionState.done && !snapshot.hasData){
+  //     return Center(child: Text("Barang tidak ada"),);
+  //   } else if(snapshot.hasData){
+  //     return ListView.builder(
+  //       itemCount: snapshot.data!.docs.length,
+  //       itemBuilder: (context, index) {
+  //                   var inventList = snapshot.data!.docs[index];
+  //                   String inventId = snapshot.data!.docs[index].id;
+  //                   String namaBrg = inventList.dat
+  //                   ;},
+  //     );
+  //   }
+  //  }); 
+  // }
 }
