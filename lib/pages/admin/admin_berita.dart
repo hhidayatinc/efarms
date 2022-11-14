@@ -1,6 +1,8 @@
 
+// ignore_for_file: deprecated_member_use
+
 import 'package:final_project/database/berita.dart';
-import 'package:final_project/pages/admin_page.dart';
+import 'package:final_project/pages/admin/admin_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -46,9 +48,8 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
   }
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return Scaffold(
-      appBar: AppBar(title: Text("List berita"),),
+      appBar: AppBar(title: const Text("List berita"),),
       body: Form(
           key: _formKey,
           child: ListView(
@@ -111,12 +112,12 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please fill this section';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null) {
+                    //     return 'Please fill this section';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                 ),
                 Padding(
@@ -130,12 +131,12 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please fill this section';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null) {
+                    //     return 'Please fill this section';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                 ),
                 Padding(
@@ -149,12 +150,12 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
                       border: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10.0)),
                     ),
-                    validator: (value) {
-                      if (value == null) {
-                        return 'Please fill this section';
-                      }
-                      return null;
-                    },
+                    // validator: (value) {
+                    //   if (value == null) {
+                    //     return 'Please fill this section';
+                    //   }
+                    //   return null;
+                    // },
                   ),
                 ),
               
@@ -176,6 +177,7 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
                                         title: const Text("Konfirmasi"),
                                         content: const Text(
                                             'Apakah anda yakin ingin membuang data ini?'),
+                                        // ignore: duplicate_ignore
                                         actions: <Widget>[
                                           // ignore: deprecated_member_use
                                           FlatButton(

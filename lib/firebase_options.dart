@@ -47,29 +47,29 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyD6T0TPlsggvV5gIhXB8KtSeEbJkZhGhdo',
-    appId: '1:76107524668:web:fbf82f1ccbc9dd67067139',
-    messagingSenderId: '76107524668',
-    projectId: 'e-farms',
-    authDomain: 'e-farms.firebaseapp.com',
-    storageBucket: 'e-farms.appspot.com',
+    apiKey: 'AIzaSyB4Tpde-uARqg3SEbJwZcs4Fwbr4kVgLrk',
+    appId: '1:1027518034716:web:55448b38366c815dac40d9',
+    messagingSenderId: '1027518034716',
+    projectId: 'finalproject-24728',
+    authDomain: 'finalproject-24728.firebaseapp.com',
+    storageBucket: 'finalproject-24728.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDY6ZRhzmStkSWiWOooRu9q6WcPMywWpzY',
-    appId: '1:76107524668:android:a953e4c53f4f5b9f067139',
-    messagingSenderId: '76107524668',
-    projectId: 'e-farms',
-    storageBucket: 'e-farms.appspot.com',
+    apiKey: 'AIzaSyAQ6RQcMILNKuNBCro7pRonvz2pRMGmgyQ',
+    appId: '1:1027518034716:android:b5b4d5d9a77f1240ac40d9',
+    messagingSenderId: '1027518034716',
+    projectId: 'finalproject-24728',
+    storageBucket: 'finalproject-24728.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyC12kHdpAO3gXFnTg6tND7nLXI40kFweRs',
-    appId: '1:76107524668:ios:bbaaa607491969fb067139',
-    messagingSenderId: '76107524668',
-    projectId: 'e-farms',
-    storageBucket: 'e-farms.appspot.com',
-    iosClientId: '76107524668-a1r1v1cq190mnhtq9735t71qvk01uec6.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDTT8PZJx03aZraAy7MoRXERuEx33v075E',
+    appId: '1:1027518034716:ios:a008b68fdb1521bbac40d9',
+    messagingSenderId: '1027518034716',
+    projectId: 'finalproject-24728',
+    storageBucket: 'finalproject-24728.appspot.com',
+    iosClientId: '1027518034716-rvs1ev2j49q8d00lbc62re44pu2rpa6d.apps.googleusercontent.com',
     iosBundleId: 'com.example.finalProject',
   );
 }

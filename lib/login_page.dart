@@ -3,7 +3,7 @@ import 'package:final_project/database/inventory.dart';
 import 'package:final_project/database/kebun.dart';
 import 'package:final_project/database/qc.dart';
 import 'package:final_project/database/user.dart';
-import 'package:final_project/pages/admin_page.dart';
+import 'package:final_project/pages/admin/admin_page.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:final_project/register_page.dart';
 import 'package:final_project/service/auth_helper.dart';
@@ -41,29 +41,29 @@ late UserHelper uh;
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<User?>(
-      stream: FirebaseAuth.instance.authStateChanges(),
-      builder: (context, snapshot) {
-        if(snapshot.hasData && snapshot.data != null) {
-          UserHelper.saveUser(snapshot.data);
-          return StreamBuilder<DocumentSnapshot>(
-            stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data!.uid).snapshots() ,
-            builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
-              if(snapshot.hasData && snapshot.data != null) {
-                final userDoc = snapshot.data;
-                if(userDoc!.get('role') == 'admin') {
-                  return AdminHomePage();
-                }else{
-                  return const HomePage();
-                }
-              }else{
-                return Material(
-                  child: Center(child: CircularProgressIndicator(),),
-                );
-              }
-            },
-          );
-        }
+    // return StreamBuilder<User?>(
+    //   stream: FirebaseAuth.instance.authStateChanges(),
+    //   builder: (context, snapshot) {
+    //     if(snapshot.hasData && snapshot.data != null) {
+    //       UserHelper.saveUser(snapshot.data);
+    //       return StreamBuilder<DocumentSnapshot>(
+    //         stream: FirebaseFirestore.instance.collection("users").doc(snapshot.data!.uid).snapshots() ,
+    //         builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot){
+    //           if(snapshot.hasData && snapshot.data != null) {
+    //             final userDoc = snapshot.data;
+    //             if(userDoc!.get('role') == 'admin') {
+    //               return AdminHomePage();
+    //             }else{
+    //               return const HomePage();
+    //             }
+    //           }else{
+    //             return const Material(
+    //               child: Center(child: CircularProgressIndicator(),),
+    //             );
+    //           }
+    //         },
+    //       );
+    //     }
         return Scaffold(
         body: Form(
             key: _formKey,
@@ -156,7 +156,8 @@ late UserHelper uh;
                     ),
                     Padding(
                         padding: const EdgeInsets.all(5),
-                        child: _loginWithGoogle(context)),
+                        child: _loginWithGoogle(context)
+                        ),
                     _registerButton(context)
                   ],
                 ),
@@ -168,8 +169,8 @@ late UserHelper uh;
                 ),
               ),
             )));
-      }
-    );
+      //}
+    //);
   }
 
   Widget _loginWithEmail() {
@@ -189,11 +190,11 @@ late UserHelper uh;
                     password: _passController.text);
                  if (user != null) {
                   
-                  //      Kebun.userUid = _auth.currentUser!.uid;
-                  //  Qc.userUid = _auth.currentUser!.uid;
-                  //  Inventory.userUid = _auth.currentUser!.uid;
-                //  Navigator.push(context,
-                //     MaterialPageRoute(builder: (context) => const HomePage()));
+                       Kebun.userUid = _auth.currentUser!.uid;
+                   Qc.userUid = _auth.currentUser!.uid;
+                   Inventory.userUid = _auth.currentUser!.uid;
+                 Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const HomePage()));
                   
                  }
               } catch (e) {
@@ -211,30 +212,7 @@ late UserHelper uh;
                                   child: const Text("OK"))
                             ]));
               }
-              // SignInSignUpResult? result = await AuthService.signInWithEmail(
-              //     email: _emailController.text, pass: _passController.text);
-              // // ignore: unnecessary_null_comparison
-              // if (result.user != null) {
-              //   Kebun.userUid = _auth.currentUser!.uid;
-              //   Qc.userUid = _auth.currentUser!.uid;
-              //   Inventory.userUid = _auth.currentUser!.uid;
-              //   Navigator.push(context,
-              //       MaterialPageRoute(builder: (context) => const HomePage()));
-              // } else {
-              //   showDialog(
-              //       context: context,
-              //       builder: (context) => AlertDialog(
-              //               title: const Text("Error"),
-              //               content: Text(result.message.toString()),
-              //               actions: <Widget>[
-              //                 // ignore: deprecated_member_use
-              //                 FlatButton(
-              //                     onPressed: () {
-              //                       Navigator.pop(context);
-              //                     },
-              //                     child: const Text("OK"))
-              //               ]));
-              // }
+              
             }
           },
 
@@ -260,14 +238,14 @@ late UserHelper uh;
           onPressed: () async {
             try {
               await AuthHelper.signInWithGoogle();
-               UserHelper.saveUser(_auth.currentUser);
-              //  Kebun.userUid = _auth.currentUser!.uid;
-              //    Qc.userUid = _auth.currentUser!.uid;
-              //    Inventory.userUid = _auth.currentUser!.uid;
-              //   Navigator.of(context)
-              //       .push(MaterialPageRoute(builder: (context) {
-              //     return  AdminHomePage();
-              //   }));
+               //UserHelper.saveUser(_auth.currentUser);
+               Kebun.userUid = _auth.currentUser!.uid;
+                 Qc.userUid = _auth.currentUser!.uid;
+                 Inventory.userUid = _auth.currentUser!.uid;
+                Navigator.of(context)
+                    .push(MaterialPageRoute(builder: (context) {
+                  return  HomePage();
+                }));
             } catch (e) {
               showDialog(
                   context: context,

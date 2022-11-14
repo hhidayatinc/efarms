@@ -1,20 +1,56 @@
 {
   "project_info": {
-    "project_number": "76107524668",
-    "project_id": "e-farms",
-    "storage_bucket": "e-farms.appspot.com"
+    "project_number": "1027518034716",
+    "project_id": "finalproject-24728",
+    "storage_bucket": "finalproject-24728.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:76107524668:android:a953e4c53f4f5b9f067139",
+        "mobilesdk_app_id": "1:1027518034716:android:f75360f5b69f347fac40d9",
+        "android_client_info": {
+          "package_name": "com.example.efarms"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027518034716-gffoqkr4km14retumj5safcoe65b4tr5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAQ6RQcMILNKuNBCro7pRonvz2pRMGmgyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027518034716-gffoqkr4km14retumj5safcoe65b4tr5.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1027518034716-cmi5nbvei28hr9c75pgmiuu5qs9i787d.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.efarms"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027518034716:android:b5b4d5d9a77f1240ac40d9",
         "android_client_info": {
           "package_name": "com.example.final_project"
         }
       },
       "oauth_client": [
         {
-          "client_id": "76107524668-mg89fhfva7o8tc20bdneuo3mem7m712v.apps.googleusercontent.com",
+          "client_id": "1027518034716-gmkfaakbb0837ha99quccodgsfg0cs33.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.example.final_project",
@@ -22,27 +58,27 @@
           }
         },
         {
-          "client_id": "76107524668-diabn0opoqeneo5nsbob48qipdcgd7qc.apps.googleusercontent.com",
+          "client_id": "1027518034716-gffoqkr4km14retumj5safcoe65b4tr5.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDY6ZRhzmStkSWiWOooRu9q6WcPMywWpzY"
+          "current_key": "AIzaSyAQ6RQcMILNKuNBCro7pRonvz2pRMGmgyQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "76107524668-diabn0opoqeneo5nsbob48qipdcgd7qc.apps.googleusercontent.com",
+              "client_id": "1027518034716-gffoqkr4km14retumj5safcoe65b4tr5.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "76107524668-a1r1v1cq190mnhtq9735t71qvk01uec6.apps.googleusercontent.com",
+              "client_id": "1027518034716-cmi5nbvei28hr9c75pgmiuu5qs9i787d.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.example.finalProject"
+                "bundle_id": "com.example.efarms"
               }
             }
           ]

@@ -332,7 +332,7 @@ class HomePageState extends State<HomePage> {
             //         //String konten = beritaList.get('konten_berita');
             //         String tanggal = beritaList.get('tanggal');
             //         //String sumber = beritaList.get('sumber');
-            //         String gambar = beritaList.get('gambar');
+            //         //String gambar = beritaList.get('gambar');
             //         return Container(
             //           padding: const EdgeInsets.all(8),
             //                             decoration: boxDecoration(),width: 180.0,child: InkWell(
@@ -343,7 +343,7 @@ class HomePageState extends State<HomePage> {
             //                             mainAxisAlignment:
             //                                 MainAxisAlignment.start,
             //                             children: [
-            //                               Image.network(gambar,
+            //                               Image.network("https://distan.bulelengkab.go.id/public/uploads/konten/21_memanen-dan-menanam-kembali-sawi-hijau-di-lahan-bpp-buleleng.jpeg",
             //                                   fit: BoxFit.fitWidth,),
             //                               const SizedBox(height: 5),
             //                               Text(

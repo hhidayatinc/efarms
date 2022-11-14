@@ -143,7 +143,7 @@ class RegisterPageState extends State<RegisterPage> {
                 final user = await AuthHelper.signupWithEmail(
                     email: _emailController.text,
                     password: _passController.text);
-                    UserHelper.saveUser(user);
+                    //UserHelper.saveUser(user);
                 if (user != null) {
                   Kebun.userUid = _auth.currentUser!.uid;
                   Qc.userUid = _auth.currentUser!.uid;
@@ -168,30 +168,7 @@ class RegisterPageState extends State<RegisterPage> {
                                   child: const Text("OK"))
                             ]));
               }
-              // SignInSignUpResult result = await AuthService.createUser(
-              //     email: _emailController.text, pass: _passController.text);
-              // // ignore: unnecessary_null_comparison
-              // if (result.user != null) {
-              //   Kebun.userUid = _auth.currentUser!.uid;
-              //   Qc.userUid = _auth.currentUser!.uid;
-              //   Inventory.userUid = _auth.currentUser!.uid;
-              //   Navigator.push(context,
-              //       MaterialPageRoute(builder: (context) => const HomePage()));
-              // } else {
-              //   showDialog(
-              //       context: context,
-              //       builder: (context) => AlertDialog(
-              //               title: const Text("Error"),
-              //               content: Text(result.message.toString()),
-              //               actions: <Widget>[
-              //                 // ignore: deprecated_member_use
-              //                 FlatButton(
-              //                     onPressed: () {
-              //                       Navigator.pop(context);
-              //                     },
-              //                     child: const Text("OK"))
-              //               ]));
-              // }
+              
             }
           },
 

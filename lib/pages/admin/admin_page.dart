@@ -1,16 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:final_project/pages/admin_berita.dart';
+import 'package:final_project/pages/admin/berita_list.dart';
 import 'package:final_project/service/auth_helper.dart';
 import 'package:final_project/login_page.dart';
 import 'package:flutter/material.dart';
 
 class AdminHomePage extends StatelessWidget {
+  const AdminHomePage({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Home'),
-        leading: IconButton(icon: Icon(Icons.logout), onPressed: (){
+        title: const Text('Admin Home'),
+        leading: IconButton(icon: const Icon(Icons.logout), onPressed: (){
           AuthHelper.logOut();
            ScaffoldMessenger.of(context)
                                                   .showSnackBar(const SnackBar(
@@ -29,16 +30,16 @@ class AdminHomePage extends StatelessWidget {
              onTap: (){
               Navigator.of(context).push(MaterialPageRoute(
                                       builder: (context) =>
-                                          const AdminBeritaPage()));
+                                          const BeritaPage()));
             },
             child: Container(child: Column(
-              children: [
+              children: const [
                 Icon(Icons.article),
                 Text("Berita")
               ],
             ),
             width: 100, height: 100,
-            padding: EdgeInsets.all(25),
+            padding: const EdgeInsets.all(25),
             decoration: BoxDecoration(color: Colors.white,
       borderRadius: BorderRadius.circular(5),
       boxShadow: [
@@ -50,16 +51,16 @@ class AdminHomePage extends StatelessWidget {
         ),
       ],),),
            ),
-           SizedBox(width: 10,),
+           const SizedBox(width: 10,),
            InkWell(
            
             child: Container(child: Column(
-              children: [
+              children: const [
                 Icon(Icons.laptop_mac),
                 Text("Webinar")
               ],
             ),
-            width: 100, height: 100,padding: EdgeInsets.all(20),
+            width: 100, height: 100,padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(color: Colors.white,
       borderRadius: BorderRadius.circular(5),
       boxShadow: [

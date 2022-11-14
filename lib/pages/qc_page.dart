@@ -2,8 +2,8 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:final_project/database/qc.dart';
-import 'package:final_project/forms/edit_qc.dart';
-import 'package:final_project/forms/form_qc.dart';
+import 'package:final_project/pages/forms/edit_qc.dart';
+import 'package:final_project/pages/forms/form_qc.dart';
 import 'package:final_project/pages/home_page.dart';
 import 'package:flutter/material.dart';
 

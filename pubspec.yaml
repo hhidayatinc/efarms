@@ -45,6 +45,8 @@ dependencies:
   dropdown_search: ^3.0.1
   date_format: ^2.0.7
   package_info: ^2.0.2
+  sqflite: ^2.0.2+1
+  path: ^1.8.0
 
 dev_dependencies:
   flutter_test:
