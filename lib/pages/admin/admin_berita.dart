@@ -1,9 +1,14 @@
 
 // ignore_for_file: deprecated_member_use
 
+import 'dart:io';
+
+import 'package:final_project/database/artikel.dart';
 import 'package:final_project/database/berita.dart';
 import 'package:final_project/pages/admin/admin_page.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
 class AdminBeritaPage extends StatefulWidget{
@@ -19,6 +24,7 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
   final TextEditingController _gambarController = TextEditingController();
   final TextEditingController _dateController = TextEditingController();
   DateTime selectedDate = DateTime.now();
+  File? image;
   // ignore: prefer_typing_uninitialized_variables
   String? setDate;
   // ignore: prefer_typing_uninitialized_variables
@@ -141,22 +147,17 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
                 ),
                 Padding(
                   padding: const EdgeInsets.all(10),
-                  child: TextFormField(
-                    keyboardType: TextInputType.text,
-                    controller: _gambarController,
-                    decoration: InputDecoration(
-                      hintText: 'Link Gambarr',
-                      hintStyle: const TextStyle(color: Colors.grey),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10.0)),
-                    ),
-                    // validator: (value) {
-                    //   if (value == null) {
-                    //     return 'Please fill this section';
-                    //   }
-                    //   return null;
-                    // },
-                  ),
+                  child: RaisedButton(onPressed: 
+() async{
+  try {
+      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+if(image == null) return;
+final imageTemp = File(image.path);
+setState(() => this.image = imageTemp);
+    } on PlatformException catch(e) {
+      print('Failed to pick image: $e');
+    }
+}),
                 ),
               
              
@@ -238,3 +239,4 @@ class _AdminBeritaState extends State<AdminBeritaPage>{
   }
   
 }
+

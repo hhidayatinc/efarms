@@ -145,7 +145,7 @@ class QualityControlState extends State<QualityControl> {
                             ),
                           ),
                           Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.all(5),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: [

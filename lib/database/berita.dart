@@ -1,4 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:io';
+import 'package:path/path.dart';
 
 final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -54,5 +57,17 @@ class Berita{
     String? beritaId
   }) async{
     await _firestore.collection("article").doc(beritaId).delete();
+  }
+
+  static Future<void>? uploadImage(File imageFile) async{
+    String fileName=basename(imageFile.path);
+
+    FirebaseStorage storage = FirebaseStorage.instance;
+    Reference ref = storage.ref().child(fileName);
+    UploadTask uploadTask = ref.putFile(imageFile);
+   uploadTask.then((res) {
+   res.ref.getDownloadURL();
+   
+});
   }
 }

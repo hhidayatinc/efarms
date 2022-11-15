@@ -143,7 +143,7 @@ class RegisterPageState extends State<RegisterPage> {
                 final user = await AuthHelper.signupWithEmail(
                     email: _emailController.text,
                     password: _passController.text);
-                    //UserHelper.saveUser(user);
+                    UserHelper.saveUser(user);
                 if (user != null) {
                   Kebun.userUid = _auth.currentUser!.uid;
                   Qc.userUid = _auth.currentUser!.uid;

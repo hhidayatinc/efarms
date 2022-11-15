@@ -188,6 +188,7 @@ late UserHelper uh;
                 final user = await AuthHelper.signInWithEmail(
                     email: _emailController.text,
                     password: _passController.text);
+                    UserHelper.saveUser(user);
                  if (user != null) {
                   
                        Kebun.userUid = _auth.currentUser!.uid;
@@ -238,6 +239,7 @@ late UserHelper uh;
           onPressed: () async {
             try {
               await AuthHelper.signInWithGoogle();
+              UserHelper.saveUser(_auth.currentUser);
                //UserHelper.saveUser(_auth.currentUser);
                Kebun.userUid = _auth.currentUser!.uid;
                  Qc.userUid = _auth.currentUser!.uid;
